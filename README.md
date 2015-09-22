@@ -23,7 +23,7 @@ Key points / Aims of the library
 - Not linked to user system implementation
 
 Some ideas emerged along the discussions
-(add your own by giving your opinion in the [Github issues](https://github.com/FriendsOfSymfony/FOSMessage/issues)!):
+(add your own by giving your opinion in the [Github issues](https://github.com/FriendsOfSymfony/FOSMessage/issues)):
 
 - Tagging system to organize conversations
 - Event system to let developer execute actions on key steps
@@ -48,9 +48,9 @@ We agreed on something like this:
 $entityManager = createEm();
 
 /*
- * Create the TgaMessage driver
+ * Create the FOSMessage driver
  */
-$driver = new \Tga\Message\Driver\DoctrineORM\DoctrineORMDriver(
+$driver = new \FOS\Message\Driver\DoctrineORM\DoctrineORMDriver(
     $entityManager,
     'Conversation',             // Your Conversation entity here
     'ConversationPerson',       // Your ConversationPerson entity here
@@ -61,7 +61,7 @@ $driver = new \Tga\Message\Driver\DoctrineORM\DoctrineORMDriver(
 /*
  * Create the repository using the driver
  */
-$repository = new \Tga\Message\Repository($driver);
+$repository = new \FOS\Message\Repository($driver);
 
 /*
  * Return all the conversation in which the given user is a member
@@ -105,7 +105,7 @@ $messages = $repository->getMessages($conversation, $offset = 0, $limit = 20, $s
 /*
  * Create the sender using the repository and the driver
  */
-$sender = new \Tga\Message\Sender($repository, $driver);
+$sender = new \FOS\Message\Sender($repository, $driver);
 
 /*
  * Start a conversation and send a first message in it.
