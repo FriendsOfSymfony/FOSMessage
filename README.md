@@ -132,4 +132,34 @@ $sender->startConversation($sender, $recipient, $body, $subject = null);
  * This method returns the created message: MessageInterface
  */
 $sender->sendMessage($conversation, $sender, $body);
+
+
+/*
+ * Create the tagger using the repository and the driver
+ */
+$tagger = new \FOS\Message\Tagger($driver, $repository);
+
+// The conversation to tag
+$conversation = $repository->getConversation($id);
+
+/*
+ * Add a $tag on a $conversation for a $user
+ */
+$tagger->addTag($conversation, $user, $tag);
+
+/*
+ * Check if the $conversation has the $tag on it for the $user
+ */
+$tagger->hasTag($conversation, $user, $tag);
+
+/*
+ * Remove a $tag from a $conversation for a $user
+ */
+$tagger->removeTag($conversation, $user, $tag);
+
+
+/*
+ * Once tagged, you can filter conversations lists by tag
+ */
+$conversations = $repository->getPersonConversations($user, $tag = null);
 ```
