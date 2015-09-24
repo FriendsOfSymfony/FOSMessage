@@ -111,17 +111,17 @@ $sender = new \FOS\Message\Sender($repository, $driver);
  * Start a conversation and send a first message in it.
  *
  * The conversation is started by $senderPerson (instance of PersonInterface)
- * and a first message is send to $recipient (either an instance of PersonInterface
+ * and a first message is send to $recipientPerson (either an instance of PersonInterface
  * or an array of PersonInterface instances for multiple recipients).
  *
  * The $subject is a subject for the conversation that can be retreived
  * afterwards to display in lists.
  *
- * The $body is the content of the first message sent by $senderPerson to $recipient.
+ * The $body is the content of the first message sent by $senderPerson to $recipientPerson.
  *
  * This method returns the created conversation: ConversationInterface
  */
-$sender->startConversation($senderPerson, $recipient, $body, $subject = null);
+$sender->startConversation($senderPerson, $recipientPerson, $body, $subject = null);
 
 /*
  * Send a reply to $conversation.
