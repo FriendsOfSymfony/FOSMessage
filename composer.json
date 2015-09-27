@@ -1,0 +1,43 @@
+{
+    "name": "fos/message",
+    "type": "library",
+    "description": "A framework-agnostic PHP 5.4+ user-to-user messaging library",
+    "keywords": [
+        "messaging",
+        "message",
+        "notification",
+        "user-to-user"
+    ],
+    "homepage": "https://github.com/FriendsOfSymfony/FOSMessage",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Titouan Galopin",
+            "email": "galopintitouan@gmail.com",
+            "homepage": "http://titouangalopin.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "doctrine/collections": "^1.3.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.8.9",
+        "doctrine/orm": "^2.5.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "FOS\\Message\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "FOS\\Message\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}

@@ -1,0 +1,23 @@
+language: php
+
+sudo: false
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+
+matrix:
+  include:
+    - php: 5.4
+    - php: 5.5
+    - php: 5.6
+    - php: 5.6
+      env: COMPOSER_FLAGS='--prefer-lowest --prefer-stable'
+    - php: nightly
+  allow_failures:
+    - php: nightly
+  fast_finish: true
+
+install: composer update $COMPOSER_FLAGS -n
+
+script: vendor/bin/phpunit
