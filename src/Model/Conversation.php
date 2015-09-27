@@ -21,7 +21,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 class Conversation implements ConversationInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -36,7 +36,7 @@ class Conversation implements ConversationInterface
     protected $persons;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -44,7 +44,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -52,7 +52,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSubject()
     {
@@ -60,7 +60,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setSubject($subject)
     {
@@ -68,17 +68,17 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addConversationPerson(ConversationPersonInterface $conversationPerson)
     {
-        if (! $this->isPersonInConversation($conversationPerson->getPerson())) {
+        if (!$this->isPersonInConversation($conversationPerson->getPerson())) {
             $this->persons->add($conversationPerson);
         }
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeConversationPerson(ConversationPersonInterface $conversationPerson)
     {
@@ -86,7 +86,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConversationPersons()
     {
@@ -94,7 +94,7 @@ class Conversation implements ConversationInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isPersonInConversation(PersonInterface $person)
     {

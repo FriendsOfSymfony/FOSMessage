@@ -16,7 +16,7 @@ use FOS\Message\Model\MessageInterface;
 use FOS\Message\Model\PersonInterface;
 
 /**
- * Start conversations and send replies
+ * Start conversations and send replies.
  *
  * @author Titouan Galopin <galopintitouan@gmail.com>
  * @author Christian Riesen <chris.riesen@gmail.com>

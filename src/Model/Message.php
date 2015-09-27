@@ -19,7 +19,7 @@ namespace FOS\Message\Model;
 class Message implements MessageInterface
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
 
@@ -45,7 +45,7 @@ class Message implements MessageInterface
 
     /**
      * @param ConversationInterface $conversation
-     * @param PersonInterface $sender
+     * @param PersonInterface       $sender
      */
     public function __construct(ConversationInterface $conversation, PersonInterface $sender, $body)
     {
@@ -56,7 +56,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getId()
     {
@@ -64,7 +64,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConversation()
     {
@@ -72,7 +72,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getSender()
     {
@@ -80,7 +80,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getBody()
     {
@@ -88,7 +88,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setBody($body)
     {
@@ -96,7 +96,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getDate()
     {
@@ -104,7 +104,7 @@ class Message implements MessageInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setDate(\DateTime $date)
     {

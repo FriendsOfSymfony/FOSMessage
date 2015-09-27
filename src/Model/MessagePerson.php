@@ -36,10 +36,10 @@ class MessagePerson implements MessagePersonInterface
     protected $read;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param MessageInterface $message
-     * @param PersonInterface $person
+     * @param PersonInterface  $person
      */
     public function __construct(MessageInterface $message, PersonInterface $person)
     {
@@ -49,7 +49,7 @@ class MessagePerson implements MessagePersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMessage()
     {
@@ -57,7 +57,7 @@ class MessagePerson implements MessagePersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPerson()
     {
@@ -65,7 +65,7 @@ class MessagePerson implements MessagePersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getRead()
     {
@@ -73,7 +73,7 @@ class MessagePerson implements MessagePersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function setRead()
     {
@@ -81,7 +81,7 @@ class MessagePerson implements MessagePersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function isRead()
     {

@@ -35,10 +35,10 @@ abstract class AbstractDoctrineDriver extends AbstractDriver
      * Constructor.
      *
      * @param ObjectManager $objectManager
-     * @param string $conversationClass
-     * @param string $conversationPersonClass
-     * @param string $messageClass
-     * @param string $messagePersonClass
+     * @param string        $conversationClass
+     * @param string        $conversationPersonClass
+     * @param string        $messageClass
+     * @param string        $messagePersonClass
      */
     public function __construct(
         ObjectManager $objectManager,
@@ -53,7 +53,7 @@ abstract class AbstractDoctrineDriver extends AbstractDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function persistConversation(ConversationInterface $conversation)
     {
@@ -61,7 +61,7 @@ abstract class AbstractDoctrineDriver extends AbstractDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function persistConversationPerson(ConversationPersonInterface $conversationPerson)
     {
@@ -69,7 +69,7 @@ abstract class AbstractDoctrineDriver extends AbstractDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function persistMessage(MessageInterface $message)
     {
@@ -77,7 +77,7 @@ abstract class AbstractDoctrineDriver extends AbstractDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function persistMessagePerson(MessagePersonInterface $messagePerson)
     {
@@ -85,7 +85,7 @@ abstract class AbstractDoctrineDriver extends AbstractDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function flush()
     {

@@ -40,10 +40,10 @@ class ConversationPerson implements ConversationPersonInterface
     protected $tags;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param ConversationInterface $conversation
-     * @param PersonInterface $person
+     * @param PersonInterface       $person
      */
     public function __construct(ConversationInterface $conversation, PersonInterface $person)
     {
@@ -69,7 +69,7 @@ class ConversationPerson implements ConversationPersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConversation()
     {
@@ -77,7 +77,7 @@ class ConversationPerson implements ConversationPersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPerson()
     {
@@ -85,7 +85,7 @@ class ConversationPerson implements ConversationPersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addTag(TagInterface $tag)
     {
@@ -97,7 +97,7 @@ class ConversationPerson implements ConversationPersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeTag(TagInterface $tag)
     {
@@ -105,7 +105,7 @@ class ConversationPerson implements ConversationPersonInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasTag(TagInterface $tag)
     {

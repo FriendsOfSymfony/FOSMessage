@@ -38,7 +38,7 @@ interface DriverInterface
      * Create a ConversationPerson model object.
      *
      * @param ConversationInterface $conversation
-     * @param PersonInterface $person
+     * @param PersonInterface       $person
      *
      * @return ConversationPersonInterface
      */
@@ -48,8 +48,8 @@ interface DriverInterface
      * Create and return a message object.
      *
      * @param ConversationInterface $conversation The conversation the message belongs to.
-     * @param PersonInterface $sender
-     * @param string $body
+     * @param PersonInterface       $sender
+     * @param string                $body
      *
      * @return MessageInterface
      */
@@ -59,7 +59,7 @@ interface DriverInterface
      * Create a MessagePerson model object.
      *
      * @param MessageInterface $message
-     * @param PersonInterface $person
+     * @param PersonInterface  $person
      *
      * @return MessagePersonInterface
      */
@@ -67,9 +67,9 @@ interface DriverInterface
 
     /**
      * Return the list of conversations of one person
-     * An optionnal tag can be specified to filter the list
+     * An optionnal tag can be specified to filter the list.
      *
-     * @param PersonInterface $person
+     * @param PersonInterface   $person
      * @param TagInterface|null $tag
      *
      * @return PersonInterface[]
@@ -92,19 +92,19 @@ interface DriverInterface
      * such link is found.
      *
      * @param ConversationInterface $conversation
-     * @param PersonInterface $person
+     * @param PersonInterface       $person
      *
      * @return ConversationPersonInterface|null
      */
     public function findConversationPerson(ConversationInterface $conversation, PersonInterface $person);
 
     /**
-     * Return the ordered list of messages in a conversation
+     * Return the ordered list of messages in a conversation.
      *
      * @param ConversationInterface $conversation
-     * @param integer $limit
-     * @param integer $offset
-     * @param string $sortDirection
+     * @param int                   $limit
+     * @param int                   $offset
+     * @param string                $sortDirection
      *
      * @return MessageInterface[] The messages
      */
@@ -117,7 +117,7 @@ interface DriverInterface
      *
      * @param ConversationInterface $conversation The conversation to persist
      *
-     * @return boolean True if the save succeed, false otherwise
+     * @return bool True if the save succeed, false otherwise
      */
     public function persistConversation(ConversationInterface $conversation);
 
@@ -128,7 +128,7 @@ interface DriverInterface
      *
      * @param ConversationPersonInterface $conversationPerson The entity to persist
      *
-     * @return boolean True if the save succeed, false otherwise
+     * @return bool True if the save succeed, false otherwise
      */
     public function persistConversationPerson(ConversationPersonInterface $conversationPerson);
 
@@ -139,7 +139,7 @@ interface DriverInterface
      *
      * @param MessageInterface $message The message to persist
      *
-     * @return boolean True if the save succeed, false otherwise
+     * @return bool True if the save succeed, false otherwise
      */
     public function persistMessage(MessageInterface $message);
 
@@ -150,7 +150,7 @@ interface DriverInterface
      *
      * @param MessagePersonInterface $messagePerson The entity to persist
      *
-     * @return boolean True if the save succeed, false otherwise
+     * @return bool True if the save succeed, false otherwise
      */
     public function persistMessagePerson(MessagePersonInterface $messagePerson);
 

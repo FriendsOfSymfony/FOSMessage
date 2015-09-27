@@ -37,7 +37,7 @@ class Tagger implements TaggerInterface
     private $repository;
 
     /**
-     * @param DriverInterface $driver
+     * @param DriverInterface     $driver
      * @param RepositoryInterface $repository
      */
     public function __construct(DriverInterface $driver, RepositoryInterface $repository)
@@ -47,13 +47,13 @@ class Tagger implements TaggerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function addTag(ConversationInterface $conversation, PersonInterface $person, TagInterface $tag)
     {
         $conversationPerson = $this->repository->getConversationPerson($conversation, $person);
 
-        if (! $conversationPerson instanceof ConversationPersonInterface) {
+        if (!$conversationPerson instanceof ConversationPersonInterface) {
             throw new \LogicException(sprintf(
                 'Link between conversation %s and person %s was not found in %s',
                 $conversation->getId(), $person->getId(), __METHOD__
@@ -73,13 +73,13 @@ class Tagger implements TaggerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function hasTag(ConversationInterface $conversation, PersonInterface $person, TagInterface $tag)
     {
         $conversationPerson = $this->repository->getConversationPerson($conversation, $person);
 
-        if (! $conversationPerson instanceof ConversationPersonInterface) {
+        if (!$conversationPerson instanceof ConversationPersonInterface) {
             return false;
         }
 
@@ -87,20 +87,20 @@ class Tagger implements TaggerInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function removeTag(ConversationInterface $conversation, PersonInterface $person, TagInterface $tag)
     {
         $conversationPerson = $this->repository->getConversationPerson($conversation, $person);
 
-        if (! $conversationPerson instanceof ConversationPersonInterface) {
+        if (!$conversationPerson instanceof ConversationPersonInterface) {
             throw new \LogicException(sprintf(
                 'Link between conversation %s and person %s was not found in %s',
                 $conversation->getId(), $person->getId(), __METHOD__
             ));
         }
 
-        if (! $conversationPerson->hasTag($tag)) {
+        if (!$conversationPerson->hasTag($tag)) {
             return false;
         }
 

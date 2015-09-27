@@ -25,13 +25,13 @@ use FOS\Message\Model\TagInterface;
 class DoctrineORMDriver extends AbstractDoctrineDriver
 {
     /**
-     * Constructor
+     * Constructor.
      *
      * @param EntityManager $objectManager
-     * @param string $conversationClass
-     * @param string $conversationPersonClass
-     * @param string $messageClass
-     * @param string $messagePersonClass
+     * @param string        $conversationClass
+     * @param string        $conversationPersonClass
+     * @param string        $messageClass
+     * @param string        $messagePersonClass
      */
     public function __construct(
         EntityManager $objectManager,
@@ -50,7 +50,7 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findPersonConversations(PersonInterface $person, TagInterface $tag = null)
     {
@@ -85,7 +85,7 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findConversationPerson(ConversationInterface $conversation, PersonInterface $person)
     {
@@ -105,7 +105,7 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findConversation($id)
     {
@@ -117,7 +117,7 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function findMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $sortDirection = 'ASC')
     {

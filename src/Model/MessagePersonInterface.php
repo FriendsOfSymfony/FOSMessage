@@ -48,11 +48,11 @@ interface MessagePersonInterface
     public function getRead();
 
     /**
-     * Returns if the message was read or not
+     * Returns if the message was read or not.
      *
      * Not strictly needed, just a helper.
      *
-     * @return boolean
+     * @return bool
      */
     public function isRead();
 }
