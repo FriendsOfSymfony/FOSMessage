@@ -32,7 +32,7 @@ class SymfonyBridgeEventDispatcher implements EventDispatcherInterface
     private $symfonyDispatcher;
 
     /**
-     * Cosntructor
+     * Cosntructor.
      *
      * @param SymfonyEventDispatcherInterface $symfonyDispatcher
      */
@@ -42,7 +42,7 @@ class SymfonyBridgeEventDispatcher implements EventDispatcherInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function dispatch(MessageEvent $event)
     {

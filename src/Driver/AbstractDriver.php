@@ -43,7 +43,7 @@ abstract class AbstractDriver implements DriverInterface
     private $messagePersonClass;
 
     /**
-     * Constructor
+     * Constructor.
      *
      * @param string $conversationClass
      * @param string $conversationPersonClass
@@ -91,7 +91,7 @@ abstract class AbstractDriver implements DriverInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createConversationModel()
     {
@@ -101,7 +101,7 @@ abstract class AbstractDriver implements DriverInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createConversationPersonModel(ConversationInterface $conversation, PersonInterface $person)
     {
@@ -111,7 +111,7 @@ abstract class AbstractDriver implements DriverInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createMessageModel(ConversationInterface $conversation, PersonInterface $sender, $body)
     {
@@ -121,7 +121,7 @@ abstract class AbstractDriver implements DriverInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function createMessagePersonModel(MessageInterface $message, PersonInterface $person)
     {

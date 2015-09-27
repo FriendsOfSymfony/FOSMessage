@@ -36,7 +36,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getPersonConversations(PersonInterface $person, $tag = null)
     {
@@ -44,7 +44,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConversation($id)
     {
@@ -52,7 +52,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getConversationPerson(ConversationInterface $conversation, PersonInterface $person)
     {
@@ -60,7 +60,7 @@ class Repository implements RepositoryInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function getMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $sortDirection = 'ASC')
     {

@@ -18,7 +18,7 @@ use FOS\Message\Model\PersonInterface;
 use FOS\Message\Model\TagInterface;
 
 /**
- * Fetch conversations, messages and persons in various ways
+ * Fetch conversations, messages and persons in various ways.
  *
  * @author Titouan Galopin <galopintitouan@gmail.com>
  * @author Christian Riesen <chris.riesen@gmail.com>
@@ -27,9 +27,9 @@ interface RepositoryInterface
 {
     /**
      * Get conversations of one person
-     * An optionnal tag can be specified to filter the list
+     * An optionnal tag can be specified to filter the list.
      *
-     * @param PersonInterface $person
+     * @param PersonInterface   $person
      * @param TagInterface|null $tag
      *
      * @return ConversationInterface[]|\Doctrine\Common\Collections\Collection
@@ -37,9 +37,9 @@ interface RepositoryInterface
     public function getPersonConversations(PersonInterface $person, $tag = null);
 
     /**
-     * Get single conversation
+     * Get single conversation.
      *
-     * @param integer $id
+     * @param int $id
      *
      * @return ConversationInterface
      */
@@ -51,19 +51,19 @@ interface RepositoryInterface
      * such link is found.
      *
      * @param ConversationInterface $conversation
-     * @param PersonInterface $person
+     * @param PersonInterface       $person
      *
      * @return ConversationPersonInterface|null
      */
     public function getConversationPerson(ConversationInterface $conversation, PersonInterface $person);
 
     /**
-     * Get messages of a conversation
+     * Get messages of a conversation.
      *
      * @param ConversationInterface $conversation
-     * @param integer $limit
-     * @param integer $offset
-     * @param string $orderDirection
+     * @param int                   $limit
+     * @param int                   $offset
+     * @param string                $orderDirection
      *
      * @return MessageInterface[]|\Doctrine\Common\Collections\Collection
      */

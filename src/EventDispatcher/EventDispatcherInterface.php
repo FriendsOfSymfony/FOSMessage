@@ -34,6 +34,7 @@ interface EventDispatcherInterface
      * A MessageEvent is dispatched when a message is sent in a conversation.
      *
      * @param MessageEvent|ConversationEvent $event
+     *
      * @return MessageEvent
      */
     public function dispatch(MessageEvent $event);

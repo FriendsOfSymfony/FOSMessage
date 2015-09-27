@@ -68,7 +68,7 @@ interface ConversationInterface
      *
      * @param PersonInterface $person
      *
-     * @return boolean
+     * @return bool
      */
     public function isPersonInConversation(PersonInterface $person);
 }

@@ -38,7 +38,7 @@ class Sender implements SenderInterface
     private $eventDispatcher;
 
     /**
-     * @param DriverInterface $driver
+     * @param DriverInterface               $driver
      * @param EventDispatcherInterface|null $eventDispatcher
      */
     public function __construct(DriverInterface $driver, EventDispatcherInterface $eventDispatcher = null)
@@ -48,13 +48,13 @@ class Sender implements SenderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function startConversation(PersonInterface $sender, $recipient, $body, $subject = null)
     {
         // Filter recipients
-        if (! is_array($recipient) && ! $recipient instanceof \Traversable) {
-            $recipient = [ $recipient ];
+        if (!is_array($recipient) && !$recipient instanceof \Traversable) {
+            $recipient = [$recipient];
         }
 
         // Create conversation and message
@@ -81,7 +81,7 @@ class Sender implements SenderInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function sendMessage(ConversationInterface $conversation, PersonInterface $sender, $body)
     {
@@ -124,13 +124,13 @@ class Sender implements SenderInterface
      * Create and persist a conversation person object.
      *
      * @param ConversationInterface $conversation
-     * @param PersonInterface $person
+     * @param PersonInterface       $person
      *
      * @return ConversationPersonInterface
      */
     private function createAndPersistConversationPerson(ConversationInterface $conversation, PersonInterface $person)
     {
-        $conversationPerson =  $this->driver->createConversationPersonModel($conversation, $person);
+        $conversationPerson = $this->driver->createConversationPersonModel($conversation, $person);
 
         $this->driver->persistConversationPerson($conversationPerson);
 
@@ -141,8 +141,8 @@ class Sender implements SenderInterface
      * Create and persist a message object.
      *
      * @param ConversationInterface $conversation
-     * @param PersonInterface $sender
-     * @param string $body
+     * @param PersonInterface       $sender
+     * @param string                $body
      *
      * @return MessageInterface
      */
@@ -159,8 +159,9 @@ class Sender implements SenderInterface
      * Create and persist a message person object.
      *
      * @param MessageInterface $message
-     * @param PersonInterface $person
-     * @param boolean $setRead
+     * @param PersonInterface  $person
+     * @param bool             $setRead
+     *
      * @return ConversationPersonInterface
      */
     private function createAndPersistMessagePerson(MessageInterface $message, PersonInterface $person, $setRead)
@@ -178,6 +179,7 @@ class Sender implements SenderInterface
 
     /**
      * @param ConversationInterface $conversation
+     *
      * @return MessageEvent
      */
     private function dispatchConversationEvent(ConversationInterface $conversation, MessageInterface $message)
@@ -187,6 +189,7 @@ class Sender implements SenderInterface
 
     /**
      * @param MessageInterface $message
+     *
      * @return MessageEvent
      */
     private function dispatchMessageEvent(MessageInterface $message)
@@ -196,6 +199,7 @@ class Sender implements SenderInterface
 
     /**
      * @param MessageEvent $event
+     *
      * @return MessageEvent
      */
     private function dispatchEvent(MessageEvent $event)

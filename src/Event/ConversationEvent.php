@@ -28,7 +28,7 @@ class ConversationEvent extends MessageEvent
 
     /**
      * @param ConversationInterface $conversation
-     * @param MessageInterface $message
+     * @param MessageInterface      $message
      */
     public function __construct(ConversationInterface $conversation, MessageInterface $message)
     {

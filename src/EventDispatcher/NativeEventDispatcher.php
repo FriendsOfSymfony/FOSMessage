@@ -45,7 +45,7 @@ class NativeEventDispatcher implements EventDispatcherInterface
     private $listeners;
 
     /**
-     * Constructor
+     * Constructor.
      */
     public function __construct()
     {
@@ -57,8 +57,8 @@ class NativeEventDispatcher implements EventDispatcherInterface
      */
     public function addListener($listener)
     {
-        if (! is_callable($listener)) {
-            throw new \InvalidArgumentException('Argument passed to '. __METHOD__ .' is not a valid callable');
+        if (!is_callable($listener)) {
+            throw new \InvalidArgumentException('Argument passed to '.__METHOD__.' is not a valid callable');
         }
 
         $this->listeners[] = $listener;
@@ -76,12 +76,12 @@ class NativeEventDispatcher implements EventDispatcherInterface
     }
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     public function dispatch(MessageEvent $event)
     {
         foreach ($this->listeners as $listener) {
-            $event = call_user_func_array($listener, [ $event ]);
+            $event = call_user_func_array($listener, [$event]);
         }
 
         return $event;

@@ -55,7 +55,7 @@ interface ConversationPersonInterface
      *
      * @param TagInterface $tag
      *
-     * @return boolean
+     * @return bool
      */
     public function hasTag(TagInterface $tag);
 }
