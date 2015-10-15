@@ -37,7 +37,7 @@ class DoctrineORMDriverTest extends AbstractDriverTest
     private static $dbFile;
 
     /**
-     * Build the SQLite database before the tests suite
+     * Build the SQLite database before the tests suite.
      */
     public static function setUpBeforeClass()
     {
@@ -64,7 +64,7 @@ class DoctrineORMDriverTest extends AbstractDriverTest
     }
 
     /**
-     * Remove the SQLite database after the tests suite
+     * Remove the SQLite database after the tests suite.
      */
     public static function tearDownAfterClass()
     {
@@ -112,15 +112,15 @@ class DoctrineORMDriverTest extends AbstractDriverTest
         $rtel->addResolveTargetEntity(
             'FOS\Message\Model\PersonInterface',
             'FOS\Message\Tests\Driver\Doctrine\ORM\Entity\TestPerson',
-            array()
+            []
         );
 
-        $evm  = new EventManager();
+        $evm = new EventManager();
         $evm->addEventListener(Events::loadClassMetadata, $rtel);
 
         $dbParams = [
             'driver' => 'pdo_sqlite',
-            'path' => self::$dbFile,
+            'path'   => self::$dbFile,
         ];
 
         return \Doctrine\ORM\EntityManager::create($dbParams, $config, $evm);
