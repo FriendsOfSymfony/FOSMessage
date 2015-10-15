@@ -29,7 +29,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
     private $repository;
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
      */
     protected function setUp()
     {
@@ -45,9 +45,9 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
 
         $this->driver->shouldReceive('findPersonConversations')
             ->with($user, $tag)
-            ->andReturn([ $conversation ]);
+            ->andReturn([$conversation]);
 
-        $this->assertSame([ $conversation ], $this->repository->getPersonConversations($user, $tag));
+        $this->assertSame([$conversation], $this->repository->getPersonConversations($user, $tag));
     }
 
     public function testGetConversation()
@@ -81,8 +81,8 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
 
         $this->driver->shouldReceive('findMessages')
             ->with($conversation, 5, 10, 'DESC')
-            ->andReturn([ $message ]);
+            ->andReturn([$message]);
 
-        $this->assertSame([ $message ], $this->repository->getMessages($conversation, 5, 10, 'DESC'));
+        $this->assertSame([$message], $this->repository->getMessages($conversation, 5, 10, 'DESC'));
     }
 }
