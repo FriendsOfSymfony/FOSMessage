@@ -70,6 +70,7 @@ abstract class AbstractDriverTest extends PHPUnit_Framework_TestCase
 
         $fetched = $this->driver->findPersonConversations($person);
 
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $fetched);
         $this->assertCount(1, $fetched);
         $this->assertInstanceOf(get_class($conversation), $fetched[0]);
         $this->assertEquals($conversation->getSubject(), $fetched[0]->getSubject());
@@ -111,6 +112,7 @@ abstract class AbstractDriverTest extends PHPUnit_Framework_TestCase
 
         $fetched = $this->driver->findMessages($conversation, 0, 20, 'ASC');
 
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $fetched);
         $this->assertCount(2, $fetched);
         $this->assertMessagesEquals($firstMessage, $fetched[0]);
         $this->assertMessagesEquals($secondMessage, $fetched[1]);
@@ -132,6 +134,7 @@ abstract class AbstractDriverTest extends PHPUnit_Framework_TestCase
 
         $fetched = $this->driver->findMessages($conversation, 0, 20, 'DESC');
 
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $fetched);
         $this->assertCount(2, $fetched);
         $this->assertMessagesEquals($secondMessage, $fetched[0]);
         $this->assertMessagesEquals($firstMessage, $fetched[1]);
@@ -156,12 +159,14 @@ abstract class AbstractDriverTest extends PHPUnit_Framework_TestCase
 
         $fetched = $this->driver->findMessages($conversation, 0, 2, 'ASC');
 
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $fetched);
         $this->assertCount(2, $fetched);
         $this->assertMessagesEquals($firstMessage, $fetched[0]);
         $this->assertMessagesEquals($secondMessage, $fetched[1]);
 
         $fetched = $this->driver->findMessages($conversation, 1, 2, 'ASC');
 
+        $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $fetched);
         $this->assertCount(2, $fetched);
         $this->assertMessagesEquals($secondMessage, $fetched[0]);
         $this->assertMessagesEquals($thirdMessage, $fetched[1]);

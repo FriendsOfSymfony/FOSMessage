@@ -11,6 +11,7 @@
 
 namespace FOS\Message\Driver\Doctrine\ORM;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManager;
 use FOS\Message\Driver\Doctrine\AbstractDoctrineDriver;
 use FOS\Message\Model\ConversationInterface;
@@ -81,7 +82,7 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
             $qb->setParameter('tag', $tag);
         }
 
-        return $qb->getQuery()->getResult();
+        return new ArrayCollection($qb->getQuery()->getResult());
     }
 
     /**
@@ -132,7 +133,7 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
             ->orderBy('m.date', $sortDirection)
             ->addOrderBy('m.id', $sortDirection);
 
-        return $qb->getQuery()->getResult();
+        return new ArrayCollection($qb->getQuery()->getResult());
     }
 
     /**

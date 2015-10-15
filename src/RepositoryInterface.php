@@ -11,6 +11,7 @@
 
 namespace FOS\Message;
 
+use Doctrine\Common\Collections\Collection;
 use FOS\Message\Model\ConversationInterface;
 use FOS\Message\Model\ConversationPersonInterface;
 use FOS\Message\Model\MessageInterface;
@@ -32,7 +33,7 @@ interface RepositoryInterface
      * @param PersonInterface   $person
      * @param TagInterface|null $tag
      *
-     * @return ConversationInterface[]|\Doctrine\Common\Collections\Collection
+     * @return ConversationInterface[]|Collection A collection of conversations.
      */
     public function getPersonConversations(PersonInterface $person, $tag = null);
 
@@ -65,7 +66,7 @@ interface RepositoryInterface
      * @param int                   $offset
      * @param string                $orderDirection
      *
-     * @return MessageInterface[]|\Doctrine\Common\Collections\Collection
+     * @return MessageInterface[]|Collection A collection of messages.
      */
     public function getMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $orderDirection = 'ASC');
 }

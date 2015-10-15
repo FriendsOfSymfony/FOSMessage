@@ -72,7 +72,7 @@ interface DriverInterface
      * @param PersonInterface   $person
      * @param TagInterface|null $tag
      *
-     * @return PersonInterface[]
+     * @return PersonInterface[]|Collection
      */
     public function findPersonConversations(PersonInterface $person, TagInterface $tag = null);
 
@@ -106,7 +106,7 @@ interface DriverInterface
      * @param int                   $offset
      * @param string                $sortDirection
      *
-     * @return MessageInterface[] The messages
+     * @return MessageInterface[]|Collection The messages
      */
     public function findMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $sortDirection = 'ASC');
 
