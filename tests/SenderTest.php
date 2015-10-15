@@ -12,6 +12,7 @@
 namespace FOS\Message\Tests;
 
 use FOS\Message\Driver\DriverInterface;
+use FOS\Message\EventDispatcher\EventDispatcherInterface;
 use FOS\Message\Sender;
 use Mockery;
 use Mockery\MockInterface;
@@ -25,6 +26,11 @@ class SenderTest extends PHPUnit_Framework_TestCase
     private $driver;
 
     /**
+     * @var EventDispatcherInterface|MockInterface
+     */
+    private $dispatcher;
+
+    /**
      * @var Sender
      */
     private $sender;
@@ -35,7 +41,8 @@ class SenderTest extends PHPUnit_Framework_TestCase
     protected function setUp()
     {
         $this->driver = Mockery::mock('FOS\Message\Driver\DriverInterface');
-        $this->sender = new Sender($this->driver);
+        $this->dispatcher = Mockery::mock('FOS\Message\EventDispatcher\EventDispatcherInterface');
+        $this->sender = new Sender($this->driver, $this->dispatcher);
     }
 
     public function testStartConversation()
@@ -149,6 +156,12 @@ class SenderTest extends PHPUnit_Framework_TestCase
             ->withNoArgs()
             ->andReturn(true);
 
+        // Dispatcher
+        $this->dispatcher->shouldReceive('dispatch')
+            ->with(Mockery::type('FOS\Message\Event\ConversationEvent'))
+            ->once()
+            ->andReturn(true);
+
         $this->assertSame(
             $conversation,
             $this->sender->startConversation(
@@ -239,6 +252,12 @@ class SenderTest extends PHPUnit_Framework_TestCase
         $this->driver->shouldReceive('flush')
             ->once()
             ->withNoArgs()
+            ->andReturn(true);
+
+        // Dispatcher
+        $this->dispatcher->shouldReceive('dispatch')
+            ->with(Mockery::type('FOS\Message\Event\MessageEvent'))
+            ->once()
             ->andReturn(true);
 
         $this->assertSame(
