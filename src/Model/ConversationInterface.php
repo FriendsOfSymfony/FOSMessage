@@ -37,8 +37,6 @@ interface ConversationInterface
      * Set this conversation subject.
      *
      * @param string $subject
-     *
-     * @return void
      */
     public function setSubject($subject);
 

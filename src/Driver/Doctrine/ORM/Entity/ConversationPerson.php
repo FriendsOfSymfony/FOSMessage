@@ -32,7 +32,7 @@ class ConversationPerson extends BaseConversationPerson
      *
      * @ORM\ManyToOne(
      *      targetEntity="FOS\Message\Driver\Doctrine\ORM\Entity\Conversation",
-     *      inversedBy="conversationPersons",
+     *      inversedBy="persons",
      *      cascade={"all"}
      * )
      */

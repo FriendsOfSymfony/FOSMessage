@@ -153,7 +153,7 @@ class SenderTest extends PHPUnit_Framework_TestCase
             $conversation,
             $this->sender->startConversation(
                 $from,
-                [ $firstRecipient, $secondRecipient ],
+                [$firstRecipient, $secondRecipient],
                 'Body',
                 'Subject'
             )

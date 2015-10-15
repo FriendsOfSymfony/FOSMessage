@@ -129,7 +129,8 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
             ->setParameter('conversation', $conversation->getId())
             ->setMaxResults($limit)
             ->setFirstResult($offset)
-            ->orderBy('m.date', $sortDirection);
+            ->orderBy('m.date', $sortDirection)
+            ->addOrderBy('m.id', $sortDirection);
 
         return $qb->getQuery()->getResult();
     }

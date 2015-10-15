@@ -157,8 +157,6 @@ interface DriverInterface
     /**
      * Flush the previous `persistXXX()` calls by really writing in the
      * persistance layer.
-     *
-     * @return void
      */
     public function flush();
 }
