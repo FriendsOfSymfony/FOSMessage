@@ -15,8 +15,9 @@ use FOS\Message\Driver\DriverInterface;
 use FOS\Message\Repository;
 use Mockery;
 use Mockery\MockInterface;
+use PHPUnit_Framework_TestCase;
 
-class RepositoryTest extends \PHPUnit_Framework_TestCase
+class RepositoryTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @var DriverInterface|MockInterface
@@ -44,6 +45,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
         $conversation = Mockery::mock('FOS\Message\Model\ConversationInterface');
 
         $this->driver->shouldReceive('findPersonConversations')
+            ->once()
             ->with($user, $tag)
             ->andReturn([$conversation]);
 
@@ -55,6 +57,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
         $conversation = Mockery::mock('FOS\Message\Model\ConversationInterface');
 
         $this->driver->shouldReceive('findConversation')
+            ->once()
             ->with(4)
             ->andReturn($conversation);
 
@@ -68,6 +71,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
         $conversationPerson = Mockery::mock('FOS\Message\Model\ConversationPersonInterface');
 
         $this->driver->shouldReceive('findConversationPerson')
+            ->once()
             ->with($conversation, $user)
             ->andReturn($conversationPerson);
 
@@ -80,6 +84,7 @@ class RepositoryTest extends \PHPUnit_Framework_TestCase
         $message = Mockery::mock('FOS\Message\Model\PersonInterface');
 
         $this->driver->shouldReceive('findMessages')
+            ->once()
             ->with($conversation, 5, 10, 'DESC')
             ->andReturn([$message]);
 
