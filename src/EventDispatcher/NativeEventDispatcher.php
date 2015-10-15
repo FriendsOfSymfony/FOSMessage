@@ -12,6 +12,7 @@
 namespace FOS\Message\EventDispatcher;
 
 use FOS\Message\Event\MessageEvent;
+use Webmozart\Assert\Assert;
 
 /**
  * Native event dispatcher usable without any dependency.
@@ -57,9 +58,10 @@ class NativeEventDispatcher implements EventDispatcherInterface
      */
     public function addListener($listener)
     {
-        if (!is_callable($listener)) {
-            throw new \InvalidArgumentException('Argument passed to '.__METHOD__.' is not a valid callable');
-        }
+        Assert::isCallable(
+            $listener,
+            '$listener expected a callable in NativeEventDispatcher::addListener(). Got: %s'
+        );
 
         $this->listeners[] = $listener;
     }

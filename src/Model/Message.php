@@ -11,6 +11,8 @@
 
 namespace FOS\Message\Model;
 
+use Webmozart\Assert\Assert;
+
 /**
  * A single message.
  *
@@ -92,6 +94,8 @@ class Message implements MessageInterface
      */
     public function setBody($body)
     {
+        Assert::string($body);
+
         $this->body = $body;
     }
 

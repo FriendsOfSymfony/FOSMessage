@@ -14,6 +14,7 @@ namespace FOS\Message;
 use FOS\Message\Driver\DriverInterface;
 use FOS\Message\Model\ConversationInterface;
 use FOS\Message\Model\PersonInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * Fetch conversations, messages and persons in various ways.
@@ -64,6 +65,15 @@ class Repository implements RepositoryInterface
      */
     public function getMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $sortDirection = 'ASC')
     {
+        Assert::integer($offset, '$offset expected an integer in Repository::getMessages(). Got: %s');
+        Assert::integer($limit, '$limit expected an integer in Repository::getMessages(). Got: %s');
+
+        Assert::oneOf(
+            strtoupper($sortDirection),
+            ['ASC', 'DESC'],
+            '$sortDirection expected either ASC or DESC in Repository::getMessages(). Got: %s'
+        );
+
         return $this->driver->findMessages($conversation, $offset, $limit, $sortDirection);
     }
 }

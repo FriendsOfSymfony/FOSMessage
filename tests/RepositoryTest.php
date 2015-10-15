@@ -90,4 +90,31 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
 
         $this->assertSame([$message], $this->repository->getMessages($conversation, 5, 10, 'DESC'));
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetMessagesInvalidOffset()
+    {
+        $conversation = Mockery::mock('FOS\Message\Model\ConversationInterface');
+        $this->repository->getMessages($conversation, 'invalid', 10, 'DESC');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetMessagesInvalidLimit()
+    {
+        $conversation = Mockery::mock('FOS\Message\Model\ConversationInterface');
+        $this->repository->getMessages($conversation, 0, 'invalid', 'DESC');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testGetMessagesInvalidSortDirection()
+    {
+        $conversation = Mockery::mock('FOS\Message\Model\ConversationInterface');
+        $this->repository->getMessages($conversation, 0, 10, 'invalid');
+    }
 }

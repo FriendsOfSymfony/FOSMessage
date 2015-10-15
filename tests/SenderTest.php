@@ -269,4 +269,52 @@ class SenderTest extends PHPUnit_Framework_TestCase
             )
         );
     }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testStartConversationInvalidSingleRecipient()
+    {
+        $from = Mockery::mock('FOS\Message\Model\PersonInterface');
+        $this->sender->startConversation($from, 'invalid', 'Body', 'Subject');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testStartConversationInvalidMultipleRecipient()
+    {
+        $from = Mockery::mock('FOS\Message\Model\PersonInterface');
+        $this->sender->startConversation($from, ['invalid'], 'Body', 'Subject');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testStartConversationInvalidBody()
+    {
+        $from = Mockery::mock('FOS\Message\Model\PersonInterface');
+        $to = Mockery::mock('FOS\Message\Model\PersonInterface');
+        $this->sender->startConversation($from, $to, new \stdClass(), 'Subject');
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testStartConversationInvalidSubject()
+    {
+        $from = Mockery::mock('FOS\Message\Model\PersonInterface');
+        $to = Mockery::mock('FOS\Message\Model\PersonInterface');
+        $this->sender->startConversation($from, $to, 'Body', new \stdClass());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testSendMessageInvalidBody()
+    {
+        $conversation = Mockery::mock('FOS\Message\Model\ConversationInterface');
+        $from = Mockery::mock('FOS\Message\Model\PersonInterface');
+        $this->sender->sendMessage($conversation, $from, new \stdClass());
+    }
 }

@@ -14,6 +14,7 @@ namespace FOS\Message;
 use FOS\Message\Model\ConversationInterface;
 use FOS\Message\Model\MessageInterface;
 use FOS\Message\Model\PersonInterface;
+use InvalidArgumentException;
 
 /**
  * Start conversations and send replies.
@@ -30,6 +31,10 @@ interface SenderInterface
      * @param string|null           $subject
      *
      * @return ConversationInterface
+     *
+     * @throws InvalidArgumentException If the recipient is neither a PersonInterface nor an array of PersonInterface.
+     * @throws InvalidArgumentException If the body is not a string.
+     * @throws InvalidArgumentException If the subject is neither null nor a string.
      */
     public function startConversation(PersonInterface $sender, $recipient, $body, $subject = null);
 
@@ -39,6 +44,8 @@ interface SenderInterface
      * @param string                $body
      *
      * @return MessageInterface
+     *
+     * @throws InvalidArgumentException If the body is not a string.
      */
     public function sendMessage(ConversationInterface $conversation, PersonInterface $sender, $body);
 }

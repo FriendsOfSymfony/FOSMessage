@@ -13,6 +13,7 @@ namespace FOS\Message\Driver\Doctrine\ORM\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\Message\Model\TagInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * @ORM\Table(name="fos_message_tags")
@@ -63,6 +64,8 @@ class Tag implements TagInterface
      */
     public function setName($name)
     {
+        Assert::string($name);
+
         $this->name = $name;
     }
 }

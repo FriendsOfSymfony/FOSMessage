@@ -125,7 +125,7 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('BodyEditedSecond', $event->getMessage()->getBody());
     }
 
-    public function testRemvoeListener()
+    public function testRemoveListener()
     {
         $this->dispatcher->addListener(function(MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedFirst');
@@ -149,5 +149,13 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('BodyEditedFirst', $message->getBody());
         $this->assertEquals('BodyEditedFirst', $event->getMessage()->getBody());
+    }
+
+    /**
+     * @expectedException \InvalidArgumentException
+     */
+    public function testAddInvalidListener()
+    {
+        $this->dispatcher->addListener(new \stdClass());
     }
 }

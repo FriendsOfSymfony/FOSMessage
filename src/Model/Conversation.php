@@ -12,6 +12,7 @@
 namespace FOS\Message\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Webmozart\Assert\Assert;
 
 /**
  * A conversation is an ordered group of messages with a subject.
@@ -64,6 +65,8 @@ class Conversation implements ConversationInterface
      */
     public function setSubject($subject)
     {
+        Assert::string($subject);
+
         $this->subject = $subject;
     }
 

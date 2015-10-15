@@ -19,6 +19,7 @@ use FOS\Message\Model\ConversationInterface;
 use FOS\Message\Model\ConversationPersonInterface;
 use FOS\Message\Model\MessageInterface;
 use FOS\Message\Model\PersonInterface;
+use Webmozart\Assert\Assert;
 
 /**
  * The service is the main entrypoint of the library.
@@ -52,9 +53,23 @@ class Sender implements SenderInterface
      */
     public function startConversation(PersonInterface $sender, $recipient, $body, $subject = null)
     {
-        // Filter recipients
         if (!is_array($recipient) && !$recipient instanceof \Traversable) {
             $recipient = [$recipient];
+        }
+
+        Assert::allIsInstanceOf(
+            $recipient,
+            'FOS\Message\Model\PersonInterface',
+            '$recipient expected ether an instance or a collection of PersonInterface in Sender::startConversation().'
+        );
+
+        Assert::string($body, '$body expected a string in Sender::startConversation(). Got: %s');
+
+        if ($subject !== null) {
+            Assert::string(
+                $subject,
+                '$subject expected either a string or null in Sender::startConversation(). Got: %s'
+            );
         }
 
         // Create conversation and message
@@ -85,6 +100,8 @@ class Sender implements SenderInterface
      */
     public function sendMessage(ConversationInterface $conversation, PersonInterface $sender, $body)
     {
+        Assert::string($body, '$body expected a string in Sender::sendMessage(). Got: %s');
+
         // Create the message
         $message = $this->createAndPersistMessage($conversation, $sender, $body);
 
