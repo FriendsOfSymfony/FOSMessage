@@ -4,7 +4,6 @@ FOSMessage
 [![Build Status](https://travis-ci.org/FriendsOfSymfony/FOSMessage.svg?branch=master)](https://travis-ci.org/FriendsOfSymfony/FOSMessage)
 [![Build status](https://ci.appveyor.com/api/projects/status/5h1rnsmk8hg4rkbf?svg=true)](https://ci.appveyor.com/project/tgalopin/fosmessage)
 
-
 FOSMessage is a PHP 5.4+ framework-agnostic library providing a data structure
 and common features to set up user-to-user messaging systems.
 
@@ -28,3 +27,4 @@ Key points
 - Optionnal tagging system to organize conversations
 - Event system to let developer execute actions on key steps
 - Implemented in framework-specific bundle / module
+- PHP7 and HHVM support
