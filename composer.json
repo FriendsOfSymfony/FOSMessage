@@ -1,5 +1,5 @@
 {
-    "name": "fos/message",
+    "name": "friendsofsymfony/message",
     "type": "library",
     "description": "A framework-agnostic PHP 5.4+ user-to-user messaging library",
     "keywords": [
