@@ -11,16 +11,33 @@ This bundle is available on Packagist. You can install it using Composer:
 
 .. code-block:: bash
 
+<<<<<<< HEAD
     composer require friendsofsymfony/message:~1.0@dev
+=======
+    composer require friendsofsymfony/message:dev-master
+
+.. important::
+
+    You should **not** use ``dev-master`` version in Composer: we are using it here
+    only because the library is currently in development. When the library will be
+    released, change that version to follow semantic versionning.
+>>>>>>> Update documentation and package name
 
 Step 2: Set up your User model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-FOSMessage provides a flexible set of tools organized around three main entites:
-conversations, messages and persons. Default entities are provided for conversations
-and messages but you need to configure the library to use your User model.
+.. note::
 
-FOSMessage requires that your user class implement `PersonInterface`. This
+    For the moment, only Doctrine ORM is supported. Doctrine ODM will be available soon.
+
+FOSMessage provides a flexible set of tools organized around three main entites:
+conversations, messages and persons.
+
+The library provides default entities for conversations and messages and they will
+be enough for the beginning (see *Customize the default entities* to learn more).
+
+However, you need to configure the library to tell it what your User model is.
+FOSMessage requires that your user class implement ``PersonInterface``. This
 library does not have any direct dependencies to any particular user system,
 except that it must implement the above interface.
 
@@ -29,6 +46,7 @@ Your user class may look something like the following:
 .. code-block:: php
 
     <?php
+
     use Doctrine\ORM\Mapping as ORM;
     use FOS\Message\Model\PersonInterface;
 

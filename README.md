@@ -7,16 +7,22 @@ FOSMessage
 FOSMessage is a PHP 5.4+ framework-agnostic library providing a data structure
 and common features to set up user-to-user messaging systems.
 
-This library is currently in development.
+You can think of it as a model for your messaging features : it will take care of the consistency
+of the data for you in order to easily create a full-featured messaging system.
 
-This library is based on the ideas of the [FOSMessageBundle](https://github.com/FriendsOfSymfony/FOSMessageBundle)
-and try to generalize them to use them in any context. It would be great to use
-this creation from scratch as an opportunity to solve the issues
-of the bundle, so please give us your ideas in the
-[Github issues tracker](https://github.com/FriendsOfSymfony/FOSMessage/issues)!
+> *Note* : This library is currently in development. You can test it in your project
+> (the Composer installation process is very simple), but you should not use it in production
+> for the moment.
 
-Key points
-----------
+This library is based on concepts shared by most modern frameworks (dependency injection,
+event dispatching, abstract data drivers, etc.) and therefore, it’s very easy to set it up in any
+kind of context.
+
+If you want to set it up in Symfony, *FOSMesageBundle* is being developed in a new version
+(not ready yet).
+
+Key features
+------------
 
 - Conversation-based messaging
 - Multiple conversations participants support
