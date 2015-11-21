@@ -11,9 +11,6 @@ This bundle is available on Packagist. You can install it using Composer:
 
 .. code-block:: bash
 
-<<<<<<< HEAD
-    composer require friendsofsymfony/message:~1.0@dev
-=======
     composer require friendsofsymfony/message:dev-master
 
 .. important::
@@ -21,7 +18,6 @@ This bundle is available on Packagist. You can install it using Composer:
     You should **not** use ``dev-master`` version in Composer: we are using it here
     only because the library is currently in development. When the library will be
     released, change that version to follow semantic versionning.
->>>>>>> Update documentation and package name
 
 Step 2: Set up your User model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -63,12 +59,97 @@ Your user class may look something like the following:
         // Your code ...
     }
 
-Step 3: Set up the library main components
+Step 3: Configure the Doctrine entity manager
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+You need to configure Doctrine for two things:
+
+- use your User model as the entity for FOSMessage ;
+- use the default entities provided by Doctrine ;
+
+If you are not using a framework, you need to configure Doctrine manually
+in order to get a usable EntityManager for FOSMessage.
+
+Here is an example of configuration to help you do so:
+
+.. code-block:: php
+
+    <?php
+
+    $config = \Doctrine\ORM\Tools\Setup::createConfiguration(true);
+
+    /*
+     * Tell Doctrine to use both your entities and the default entities from FOSMessage
+     */
+    $config->setMetadataDriverImpl($config->newDefaultAnnotationDriver([
+        __DIR__ . '/vendor/friendsofsymfony/message/src/Driver/Doctrine/ORM/Entity',
+        __DIR__ . '/src',
+    ], false));
+
+    /*
+     * If you want to use a debug logger
+     */
+    if ($logger) {
+        $config->setSQLLogger($logger);
+    }
+
+    /*
+     * Your database parameters
+     */
+    $dbParams = [
+        'driver'   => 'pdo_mysql',
+        'host'     => '127.0.0.1',
+        'user'     => 'root',
+        'password' => 'root',
+        'dbname'   => 'fos_message',
+    ];
+
+    /*
+     * Use the Doctrine event manager to use your User model instead of the FOSMessage interface
+     * in FOSMessage driver
+     */
+    $rtel = new \Doctrine\ORM\Tools\ResolveTargetEntityListener();
+    $rtel->addResolveTargetEntity('FOS\\Message\\Model\\PersonInterface', 'Entity\\User', []);
+
+    $evm  = new \Doctrine\Common\EventManager();
+    $evm->addEventListener(Doctrine\ORM\Events::loadClassMetadata, $rtel);
+
+    /*
+     * Finally, create the Doctrine EntityManager
+     */
+    $entityManager = \Doctrine\ORM\EntityManager::create($dbParams, $config, $evm);
+
+If you are using a framework, the process might be different.
+
+
+Step 4: Set up the library main components
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once you have configured Doctrine and your model, you are ready to use FOSMessage.
 
 FOSMessage is organized around three components : the Repository that fetch conversations and messages,
 the Sender that start conversations and send replies and the Tagger that let you (the developer) tag
-conversation to retreive them in the future.
+conversations to retreive them in the future.
 
 These three components are usually set up automatically in the context of a framework (by the dependency
 injection). If you are not using a framework, you have to set up these components yourself.
+
+For the moment, as only Doctrine ORM is available in FOSMessage, you have to use the
+Doctrine ORM driver. In the future, other options will be available.
+
+Let's create the components to use them later:
+
+.. code-block:: php
+
+    <?php
+
+    $driver = new \FOS\Message\Driver\Doctrine\ORM\DoctrineORMDriver($entityManager);
+
+    // The Repository will let you fetch the messages and the conversations.
+    $repository = new \FOS\Message\Repository($driver);
+
+    // The Sender will let you start conversations and reply to them.
+    $sender = new \FOS\Message\Sender($driver);
+
+    // The Tagger will let you tag conversations to retrieve them easily in the future.
+    $tagger = new \FOS\Message\Tagger($driver, $repository);
