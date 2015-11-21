@@ -11,7 +11,7 @@ This bundle is available on Packagist. You can install it using Composer:
 
 .. code-block:: bash
 
-    composer require friendsofsymfony/message:dev-master
+    composer require friendsofsymfony/message:1.0.x-dev
 
 .. important::
 
