@@ -21,6 +21,11 @@ kind of context.
 If you want to set it up in Symfony, *FOSMesageBundle* is being developed in a new version
 (not ready yet).
 
+Documentation
+-------------
+
+You can [read the documentation here](http://fosmessage.readthedocs.org).
+
 Key features
 ------------
 
