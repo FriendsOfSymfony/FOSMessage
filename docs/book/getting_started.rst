@@ -1,11 +1,19 @@
-Overview
-========
+Getting started
+===============
+
+Requirements
+------------
+
+FOSMessage only supports Doctrine ORM for the moment but it will support
+Doctrine ODM in the future. Therefore, for now, you need Doctrine ORM:
+
+.. code-block:: bash
+
+    composer require doctrine/orm
+
 
 Installation
 ------------
-
-Step 1: Download FOSMessage using Composer
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 This bundle is available on Packagist. You can install it using Composer:
 
@@ -15,11 +23,15 @@ This bundle is available on Packagist. You can install it using Composer:
 
 .. important::
 
-    You should **not** use ``dev-master`` version in Composer: we are using it here
+    You should **not** use development versions in Composer: we are using it here
     only because the library is currently in development. When the library will be
     released, change that version to follow semantic versionning.
 
-Step 2: Set up your User model
+
+Configuration
+-------------
+
+Step 1: Set up your User model
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. note::
@@ -59,7 +71,7 @@ Your user class may look something like the following:
         // Your code ...
     }
 
-Step 3: Configure the Doctrine entity manager
+Step 2: Configure the Doctrine entity manager
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 You need to configure Doctrine for two things:
@@ -121,35 +133,4 @@ Here is an example of configuration to help you do so:
 
 If you are using a framework, the process might be different.
 
-
-Step 4: Set up the library main components
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-Once you have configured Doctrine and your model, you are ready to use FOSMessage.
-
-FOSMessage is organized around three components : the Repository that fetch conversations and messages,
-the Sender that start conversations and send replies and the Tagger that let you (the developer) tag
-conversations to retreive them in the future.
-
-These three components are usually set up automatically in the context of a framework (by the dependency
-injection). If you are not using a framework, you have to set up these components yourself.
-
-For the moment, as only Doctrine ORM is available in FOSMessage, you have to use the
-Doctrine ORM driver. In the future, other options will be available.
-
-Let's create the components to use them later:
-
-.. code-block:: php
-
-    <?php
-
-    $driver = new \FOS\Message\Driver\Doctrine\ORM\DoctrineORMDriver($entityManager);
-
-    // The Repository will let you fetch the messages and the conversations.
-    $repository = new \FOS\Message\Repository($driver);
-
-    // The Sender will let you start conversations and reply to them.
-    $sender = new \FOS\Message\Sender($driver);
-
-    // The Tagger will let you tag conversations to retrieve them easily in the future.
-    $tagger = new \FOS\Message\Tagger($driver, $repository);
+Now that you have a configured entity manager, you are ready to start using the library!

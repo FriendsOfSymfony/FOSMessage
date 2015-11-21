@@ -37,6 +37,7 @@ Documentation
 -------------
 
 .. toctree::
-    :maxdepth: 2
+    :maxdepth: 3
 
-    book/overview
+    book/getting_started
+    book/usage
