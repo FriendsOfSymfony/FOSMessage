@@ -33,6 +33,7 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getCallbacks
+     *
      * @param callback $listener
      */
     public function testMessageListener($listener)
@@ -52,6 +53,7 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getCallbacks
+     *
      * @param callback $listener
      */
     public function testConversationListener($listener)
@@ -78,8 +80,8 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
     public function getCallbacks()
     {
         return [
-            'Array callable' => [ [ $this, 'callbackListener' ] ],
-            'Anonymous function' => [ function(MessageEvent $event) {
+            'Array callable'     => [[$this, 'callbackListener']],
+            'Anonymous function' => [function (MessageEvent $event) {
                 if ($event instanceof ConversationEvent) {
                     $event->getConversation()->setSubject('SubjectEdited');
                 }
@@ -87,7 +89,7 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
                 $event->getMessage()->setBody('BodyEdited');
 
                 return $event;
-            } ]
+            }],
         ];
     }
 
@@ -104,13 +106,15 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
     public function testMultipleListeners()
     {
-        $this->dispatcher->addListener(function(MessageEvent $event) {
+        $this->dispatcher->addListener(function (MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedFirst');
+
             return $event;
         });
 
-        $this->dispatcher->addListener(function(MessageEvent $event) {
+        $this->dispatcher->addListener(function (MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedSecond');
+
             return $event;
         });
 
@@ -127,13 +131,15 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveListener()
     {
-        $this->dispatcher->addListener(function(MessageEvent $event) {
+        $this->dispatcher->addListener(function (MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedFirst');
+
             return $event;
         });
 
-        $secondListener = function(MessageEvent $event) {
+        $secondListener = function (MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedSecond');
+
             return $event;
         };
 

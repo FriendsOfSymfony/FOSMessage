@@ -30,11 +30,11 @@ interface SenderInterface
      * @param string                $body
      * @param string|null           $subject
      *
-     * @return ConversationInterface
-     *
      * @throws InvalidArgumentException If the recipient is neither a PersonInterface nor an array of PersonInterface.
      * @throws InvalidArgumentException If the body is not a string.
      * @throws InvalidArgumentException If the subject is neither null nor a string.
+     *
+     * @return ConversationInterface
      */
     public function startConversation(PersonInterface $sender, $recipient, $body, $subject = null);
 
@@ -43,9 +43,9 @@ interface SenderInterface
      * @param PersonInterface       $sender
      * @param string                $body
      *
-     * @return MessageInterface
-     *
      * @throws InvalidArgumentException If the body is not a string.
+     *
+     * @return MessageInterface
      */
     public function sendMessage(ConversationInterface $conversation, PersonInterface $sender, $body);
 }

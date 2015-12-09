@@ -67,11 +67,11 @@ interface RepositoryInterface
      * @param int                   $offset
      * @param string                $sortDirection
      *
-     * @return MessageInterface[]|Collection A collection of messages.
-     *
      * @throws InvalidArgumentException If the offset is not an integer.
      * @throws InvalidArgumentException If the limit is not an integer.
      * @throws InvalidArgumentException If the sort direction is neither ASC nor DESC.
+     *
+     * @return MessageInterface[]|Collection A collection of messages.
      */
     public function getMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $sortDirection = 'ASC');
 }
