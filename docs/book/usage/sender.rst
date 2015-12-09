@@ -45,7 +45,7 @@ For instance, in a controller it could look like this:
             if ($request->getMethod() == 'POST') {
                 $data = ...; // Find the form data for instance ...
 
-                $conversation = $sender->startConversation($this->getUser(), $data['recipient'], $data['body']);
+                $conversation = $sender->startConversation($this->getUser(), $data['recipient'], $data['body'], '');
 
                 return $this->redirect('conversation_view', [ 'id' => $conversation->getId() ]);
             }
@@ -85,7 +85,7 @@ For instance, in a controller it could look like this:
             $conversation = $repository->getConversation($id);
 
             // Check access
-            if (! $conversation->isPersonInConversation($this->getUser()) {
+            if (!$conversation->isPersonInConversation($this->getUser())) {
                 throw new AccessDeniedHttpException();
             }
 
