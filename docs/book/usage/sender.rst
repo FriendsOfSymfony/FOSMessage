@@ -85,7 +85,7 @@ For instance, in a controller it could look like this:
             $conversation = $repository->getConversation($id);
 
             // Check access
-            if (! $conversation->isPersonInConversation($this->getUser()) {
+            if (! $conversation->isPersonInConversation($this->getUser())) {
                 throw new AccessDeniedHttpException();
             }
 
