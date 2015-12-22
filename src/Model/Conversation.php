@@ -65,7 +65,7 @@ class Conversation implements ConversationInterface
      */
     public function setSubject($subject)
     {
-        Assert::string($subject);
+        Assert::nullOrString($subject);
 
         $this->subject = $subject;
     }

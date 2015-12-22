@@ -64,13 +64,7 @@ class Sender implements SenderInterface
         );
 
         Assert::string($body, '$body expected a string in Sender::startConversation(). Got: %s');
-
-        if ($subject !== null) {
-            Assert::string(
-                $subject,
-                '$subject expected either a string or null in Sender::startConversation(). Got: %s'
-            );
-        }
+        Assert::nullOrString($subject, '$subject expected either a string or null in Sender::startConversation(). Got: %s');
 
         // Create conversation and message
         $conversation = $this->createAndPersistConversation($subject);
