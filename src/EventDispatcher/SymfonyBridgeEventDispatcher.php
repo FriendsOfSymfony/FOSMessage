@@ -12,6 +12,7 @@
 namespace FOS\Message\EventDispatcher;
 
 use FOS\Message\Event\MessageEvent;
+use FOS\Message\Event\SymfonyEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface as SymfonyEventDispatcherInterface;
 
 /**
@@ -46,6 +47,6 @@ class SymfonyBridgeEventDispatcher implements EventDispatcherInterface
      */
     public function dispatch(MessageEvent $event)
     {
-        return $this->symfonyDispatcher->dispatch(EventDispatcherInterface::EVENT_NAME, $event);
+        return $this->symfonyDispatcher->dispatch(EventDispatcherInterface::EVENT_NAME, new SymfonyEvent($event));
     }
 }
