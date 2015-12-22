@@ -229,10 +229,21 @@ You also need to register a few services:
             class: FOS\Message\Repository
             arguments: [ "@fos_message.driver" ]
 
+        fos_message.event_dispatcher:
+            class: FOS\Message\EventDispatcher\SymfonyBridgeEventDispatcher
+            arguments: [ "@event_dispatcher" ]
+
+        fos_message.tagger:
+            class: FOS\Message\Tagger
+            arguments:
+                - "@fos_message.driver"
+                - "@fos_message.repository"
+
         fos_message.sender:
             class: FOS\Message\Sender
-            arguments: [ "@fos_message.driver" ]
-
+            arguments:
+                - "@fos_message.driver"
+                - "@fos_message.event_dispatcher"
 
 And then you will be able to use the components as following:
 
