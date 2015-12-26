@@ -49,7 +49,7 @@ class ConversationPerson extends BaseConversationPerson
      * @var \FOS\Message\Model\TagInterface[]|\Doctrine\Common\Collections\ArrayCollection
      *
      * @ORM\ManyToMany(targetEntity="FOS\Message\Driver\Doctrine\ORM\Entity\Tag")
-     * @ORM\JoinTable(name="conversations_persons_tags")
+     * @ORM\JoinTable(name="fos_message_conversations_persons_tags")
      */
     protected $tags;
 }
