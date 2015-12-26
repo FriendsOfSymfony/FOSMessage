@@ -11,6 +11,7 @@
 
 namespace FOS\Message\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Webmozart\Assert\Assert;
 
 /**
@@ -46,6 +47,11 @@ class Message implements MessageInterface
     protected $date;
 
     /**
+     * @var MessagePersonInterface[]|\Doctrine\Common\Collections\Collection
+     */
+    protected $persons;
+
+    /**
      * @param ConversationInterface $conversation
      * @param PersonInterface       $sender
      */
@@ -55,6 +61,7 @@ class Message implements MessageInterface
         $this->sender = $sender;
         $this->body = $body;
         $this->date = new \DateTime();
+        $this->persons = new ArrayCollection();
     }
 
     /**
@@ -113,5 +120,29 @@ class Message implements MessageInterface
     public function setDate(\DateTime $date)
     {
         $this->date = $date;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addMessagePerson(MessagePersonInterface $messagePerson)
+    {
+        $this->persons->add($messagePerson);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeMessagePerson(MessagePersonInterface $messagePerson)
+    {
+        $this->persons->removeElement($messagePerson);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMessagePersons()
+    {
+        return $this->persons;
     }
 }

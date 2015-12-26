@@ -67,4 +67,25 @@ interface MessageInterface
      * @param \DateTime $body
      */
     public function setDate(\DateTime $body);
+
+    /**
+     * Add a person to this message.
+     *
+     * @param MessagePersonInterface $messagePerson
+     */
+    public function addMessagePerson(MessagePersonInterface $messagePerson);
+
+    /**
+     * Remove a person from this message.
+     *
+     * @param MessagePersonInterface $messagePerson
+     */
+    public function removeMessagePerson(MessagePersonInterface $messagePerson);
+
+    /**
+     * Get all the persons in this message.
+     *
+     * @return MessagePersonInterface[]|\Doctrine\Common\Collections\Collection
+     */
+    public function getMessagePersons();
 }

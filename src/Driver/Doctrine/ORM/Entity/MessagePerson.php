@@ -30,7 +30,11 @@ class MessagePerson extends BaseMessagePerson
     /**
      * @var \FOS\Message\Model\MessageInterface
      *
-     * @ORM\ManyToOne(targetEntity="FOS\Message\Driver\Doctrine\ORM\Entity\Message", cascade={"all"})
+     * @ORM\ManyToOne(
+     *      targetEntity="FOS\Message\Driver\Doctrine\ORM\Entity\Message",
+     *      inversedBy="persons",
+     *      cascade={"all"}
+     * )
      */
     protected $message;
 
