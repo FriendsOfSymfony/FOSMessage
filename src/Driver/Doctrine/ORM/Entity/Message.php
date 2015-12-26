@@ -58,4 +58,15 @@ class Message extends BaseMessage
      * @ORM\Column(type="datetime")
      */
     protected $date;
+
+    /**
+     * @var \FOS\Message\Model\MessagePersonInterface[]
+     *
+     * @ORM\OneToMany(
+     *      targetEntity="FOS\Message\Driver\Doctrine\ORM\Entity\MessagePerson",
+     *      mappedBy="message",
+     *      cascade={"all"}
+     * )
+     */
+    protected $persons;
 }
