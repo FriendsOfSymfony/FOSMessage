@@ -85,11 +85,11 @@ class PhpDiConfigTest extends PHPUnit_Framework_TestCase
     private function createContainer(DriverInterface $driver = null)
     {
         $builder = new ContainerBuilder();
-        $builder->addDefinitions(__DIR__ . '/../../res/config/php-di.php');
+        $builder->addDefinitions(__DIR__.'/../../res/config/php-di.php');
 
         if ($driver) {
             $builder->addDefinitions([
-                DriverInterface::class => $driver
+                DriverInterface::class => $driver,
             ]);
         }
 

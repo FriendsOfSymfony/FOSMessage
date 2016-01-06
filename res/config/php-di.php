@@ -18,7 +18,7 @@ use FOS\Message\Tagger;
 use FOS\Message\TaggerInterface;
 use Interop\Container\ContainerInterface;
 
-/**
+/*
  * Configuration file to auto-register FOSMessage services in PHP-DI using Puli.
  *
  * @see http://docs.puli.io/en/latest/
@@ -27,33 +27,33 @@ use Interop\Container\ContainerInterface;
 
 return [
 
-    RepositoryInterface::class => function(ContainerInterface $container) {
-        if (! $container->has(DriverInterface::class)) {
+    RepositoryInterface::class => function (ContainerInterface $container) {
+        if (!$container->has(DriverInterface::class)) {
             throw new \RuntimeException(
                 'You need to configure the FOSMessage driver in PHP-DI to use the library. '.
-                'Use the definition name "'. DriverInterface::class .'". See the documentation for more details.'
+                'Use the definition name "'.DriverInterface::class.'". See the documentation for more details.'
             );
         }
 
         return new Repository($container->get(DriverInterface::class));
     },
 
-    SenderInterface::class => function(ContainerInterface $container) {
-        if (! $container->has(DriverInterface::class)) {
+    SenderInterface::class => function (ContainerInterface $container) {
+        if (!$container->has(DriverInterface::class)) {
             throw new \RuntimeException(
                 'You need to configure the FOSMessage driver in PHP-DI to use the library. '.
-                'Use the definition name "'. DriverInterface::class .'". See the documentation for more details.'
+                'Use the definition name "'.DriverInterface::class.'". See the documentation for more details.'
             );
         }
 
         return new Sender($container->get(DriverInterface::class));
     },
 
-    TaggerInterface::class => function(ContainerInterface $container) {
-        if (! $container->has(DriverInterface::class)) {
+    TaggerInterface::class => function (ContainerInterface $container) {
+        if (!$container->has(DriverInterface::class)) {
             throw new \RuntimeException(
                 'You need to configure the FOSMessage driver in PHP-DI to use the library. '.
-                'Use the definition name "'. DriverInterface::class .'". See the documentation for more details.'
+                'Use the definition name "'.DriverInterface::class.'". See the documentation for more details.'
             );
         }
 
