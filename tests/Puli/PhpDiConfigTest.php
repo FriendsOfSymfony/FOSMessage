@@ -13,12 +13,6 @@ namespace FOS\Message\Tests\Puli;
 
 use DI\ContainerBuilder;
 use FOS\Message\Driver\DriverInterface;
-use FOS\Message\Repository;
-use FOS\Message\RepositoryInterface;
-use FOS\Message\Sender;
-use FOS\Message\SenderInterface;
-use FOS\Message\Tagger;
-use FOS\Message\TaggerInterface;
 use Mockery;
 use PHPUnit_Framework_TestCase;
 
