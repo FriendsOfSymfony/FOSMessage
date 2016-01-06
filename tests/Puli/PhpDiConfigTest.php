@@ -35,21 +35,21 @@ class PhpDiConfigTest extends PHPUnit_Framework_TestCase
     {
         $container = $this->createContainer(Mockery::mock('FOS\Message\Driver\DriverInterface'));
 
-        $this->assertInstanceOf(Repository::class, $container->get(RepositoryInterface::class));
+        $this->assertInstanceOf('FOS\Message\Repository', $container->get('FOS\Message\RepositoryInterface'));
     }
 
     public function testSender()
     {
         $container = $this->createContainer(Mockery::mock('FOS\Message\Driver\DriverInterface'));
 
-        $this->assertInstanceOf(Sender::class, $container->get(SenderInterface::class));
+        $this->assertInstanceOf('FOS\Message\Sender', $container->get('FOS\Message\SenderInterface'));
     }
 
     public function testTagger()
     {
         $container = $this->createContainer(Mockery::mock('FOS\Message\Driver\DriverInterface'));
 
-        $this->assertInstanceOf(Tagger::class, $container->get(TaggerInterface::class));
+        $this->assertInstanceOf('FOS\Message\Tagger', $container->get('FOS\Message\TaggerInterface'));
     }
 
     /**
@@ -59,7 +59,7 @@ class PhpDiConfigTest extends PHPUnit_Framework_TestCase
     public function testRepositoryWithoutDriverFails()
     {
         $container = $this->createContainer();
-        $container->get(RepositoryInterface::class);
+        $container->get('FOS\Message\RepositoryInterface');
     }
 
     /**
@@ -69,7 +69,7 @@ class PhpDiConfigTest extends PHPUnit_Framework_TestCase
     public function testSenderWithoutDriverFails()
     {
         $container = $this->createContainer();
-        $container->get(SenderInterface::class);
+        $container->get('FOS\Message\SenderInterface');
     }
 
     /**
@@ -79,7 +79,7 @@ class PhpDiConfigTest extends PHPUnit_Framework_TestCase
     public function testTaggerWithoutDriverFails()
     {
         $container = $this->createContainer();
-        $container->get(TaggerInterface::class);
+        $container->get('FOS\Message\TaggerInterface');
     }
 
     private function createContainer(DriverInterface $driver = null)
@@ -89,7 +89,7 @@ class PhpDiConfigTest extends PHPUnit_Framework_TestCase
 
         if ($driver) {
             $builder->addDefinitions([
-                DriverInterface::class => $driver,
+                'FOS\Message\Driver\DriverInterface' => $driver,
             ]);
         }
 
