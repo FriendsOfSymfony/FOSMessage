@@ -22,10 +22,14 @@ use FOS\Message\Event\MessageEvent;
 interface EventDispatcherInterface
 {
     /**
-     * Event name for dispatchers needing an event name.
-     * The native dispatcher does not need one so it simply does not use this constant.
+     * PRE_PERSIST is dispatched right before entities are persisted and flushed.
      */
-    const EVENT_NAME = 'fos_message';
+    const PRE_PERSIST = 'fos_message.pre_persist';
+
+    /**
+     * POST_PERSIST is dispatched right after entities are persisted and flushed.
+     */
+    const POST_PERSIST = 'fos_message.post_persist';
 
     /**
      * Dispatch an event and return the result.
@@ -33,9 +37,13 @@ interface EventDispatcherInterface
      * A ConversationEvent is dispatched when a conversation is started.
      * A MessageEvent is dispatched when a message is sent in a conversation.
      *
+     * See the FOSMessageEvents class for the exhaustive list of the events
+     * dispatched by FOSMessage.
+     *
+     * @param string                         $eventName
      * @param MessageEvent|ConversationEvent $event
      *
      * @return MessageEvent
      */
-    public function dispatch(MessageEvent $event);
+    public function dispatch($eventName, MessageEvent $event);
 }
