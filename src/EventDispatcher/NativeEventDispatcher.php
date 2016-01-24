@@ -25,11 +25,17 @@ use Webmozart\Assert\Assert;
  * ``` php
  * $dispatcher = new NativeEventDispatcher();
  *
- * $dispatcher->addListener(function(MessageEvent $event) {
+ * $dispatcher->addListener(function($eventName, MessageEvent $event) {
  *      if ($event instanceof ConversationEvent) {
  *          // Event is a new conversation
  *      } else {
  *          // Event is an answer to a conversation
+ *      }
+ *
+ *      if ($eventName === FOSMessageEvents::PRE_PERSIST) {
+ *          // Before persist
+ *      } elseif ($eventName === FOSMessageEvents::POST_PERSIST) {
+ *          // After persist
  *      }
  * });
  *
@@ -80,10 +86,10 @@ class NativeEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function dispatch(MessageEvent $event)
+    public function dispatch($eventName, MessageEvent $event)
     {
         foreach ($this->listeners as $listener) {
-            $event = call_user_func_array($listener, [$event]);
+            $event = call_user_func_array($listener, [$eventName, $event]);
         }
 
         return $event;

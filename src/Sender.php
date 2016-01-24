@@ -80,11 +80,21 @@ class Sender implements SenderInterface
         $this->createAndPersistConversationPerson($conversation, $sender);
         $this->createAndPersistMessagePerson($message, $sender, true);
 
-        // Flush the previously persisted entities
+        // Dispatch PRE_PERSIST event
+        $event = new ConversationEvent($conversation, $message);
+
+        $this->dispatchEvent(EventDispatcherInterface::PRE_PERSIST, $event);
+
+        $conversation = $event->getConversation();
+        $message = $event->getMessage();
+
+        // Persist
+        $this->driver->persistConversation($conversation);
+        $this->driver->persistMessage($message);
         $this->driver->flush();
 
-        // Dispatch the event
-        $this->dispatchConversationEvent($conversation, $message);
+        // Dispatch POST_PERSIST event
+        $this->dispatchEvent(EventDispatcherInterface::POST_PERSIST, new ConversationEvent($conversation, $message));
 
         return $conversation;
     }
@@ -105,11 +115,19 @@ class Sender implements SenderInterface
             $this->createAndPersistMessagePerson($message, $person, $person->getId() === $sender->getId());
         }
 
-        // Flush the previously persisted entities
+        // Dispatch PRE_PERSIST event
+        $event = new MessageEvent($message);
+
+        $this->dispatchEvent(EventDispatcherInterface::PRE_PERSIST, $event);
+
+        $message = $event->getMessage();
+
+        // Persist
+        $this->driver->persistMessage($message);
         $this->driver->flush();
 
-        // Dispatch the event
-        $this->dispatchMessageEvent($message);
+        // Dispatch POST_PERSIST event
+        $this->dispatchEvent(EventDispatcherInterface::POST_PERSIST, new MessageEvent($message));
 
         return $message;
     }
@@ -189,34 +207,15 @@ class Sender implements SenderInterface
     }
 
     /**
-     * @param ConversationInterface $conversation
-     *
-     * @return MessageEvent
-     */
-    private function dispatchConversationEvent(ConversationInterface $conversation, MessageInterface $message)
-    {
-        return $this->dispatchEvent(new ConversationEvent($conversation, $message));
-    }
-
-    /**
-     * @param MessageInterface $message
-     *
-     * @return MessageEvent
-     */
-    private function dispatchMessageEvent(MessageInterface $message)
-    {
-        return $this->dispatchEvent(new MessageEvent($message));
-    }
-
-    /**
+     * @param string       $eventName
      * @param MessageEvent $event
      *
      * @return MessageEvent
      */
-    private function dispatchEvent(MessageEvent $event)
+    private function dispatchEvent($eventName, MessageEvent $event)
     {
         if ($this->eventDispatcher) {
-            return $this->eventDispatcher->dispatch($event);
+            return $this->eventDispatcher->dispatch($eventName, $event);
         }
 
         return $event;

@@ -18,10 +18,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface as SymfonyEventDi
 /**
  * Event dispatcher to send events to the Symfony event dispatcher.
  *
- * Simply provides the Symfony dispatcher and this bridge will dispatch
- * into it the event with name the value of EventDispatcherInterface::EVENT_NAME.
- *
- * You can use the bundle (FOSMessageBundle) if you want to integrate the library in Symfony.
+ * Simply provides the Symfony dispatcher and this bridge will forward
+ * the library event to the Symfony event dispatcher.
  *
  * @author Titouan Galopin <galopintitouan@gmail.com>
  */
@@ -45,8 +43,8 @@ class SymfonyBridgeEventDispatcher implements EventDispatcherInterface
     /**
      * {@inheritdoc}
      */
-    public function dispatch(MessageEvent $event)
+    public function dispatch($eventName, MessageEvent $event)
     {
-        return $this->symfonyDispatcher->dispatch(EventDispatcherInterface::EVENT_NAME, new SymfonyEvent($event));
+        return $this->symfonyDispatcher->dispatch($eventName, new SymfonyEvent($event));
     }
 }

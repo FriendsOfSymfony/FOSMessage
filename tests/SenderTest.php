@@ -150,6 +150,12 @@ class SenderTest extends PHPUnit_Framework_TestCase
             ->with($secondMessageModel)
             ->andReturn(true);
 
+        // Dispatcher
+        $this->dispatcher->shouldReceive('dispatch')
+            ->with(EventDispatcherInterface::PRE_PERSIST, Mockery::type('FOS\Message\Event\ConversationEvent'))
+            ->once()
+            ->andReturn(true);
+
         // Final flush
         $this->driver->shouldReceive('flush')
             ->once()
@@ -158,7 +164,7 @@ class SenderTest extends PHPUnit_Framework_TestCase
 
         // Dispatcher
         $this->dispatcher->shouldReceive('dispatch')
-            ->with(Mockery::type('FOS\Message\Event\ConversationEvent'))
+            ->with(EventDispatcherInterface::POST_PERSIST, Mockery::type('FOS\Message\Event\ConversationEvent'))
             ->once()
             ->andReturn(true);
 
@@ -248,6 +254,12 @@ class SenderTest extends PHPUnit_Framework_TestCase
             ->with($secondMessageModel)
             ->andReturn(true);
 
+        // Dispatcher
+        $this->dispatcher->shouldReceive('dispatch')
+            ->with(EventDispatcherInterface::PRE_PERSIST, Mockery::type('FOS\Message\Event\MessageEvent'))
+            ->once()
+            ->andReturn(true);
+
         // Final flush
         $this->driver->shouldReceive('flush')
             ->once()
@@ -256,7 +268,7 @@ class SenderTest extends PHPUnit_Framework_TestCase
 
         // Dispatcher
         $this->dispatcher->shouldReceive('dispatch')
-            ->with(Mockery::type('FOS\Message\Event\MessageEvent'))
+            ->with(EventDispatcherInterface::POST_PERSIST, Mockery::type('FOS\Message\Event\MessageEvent'))
             ->once()
             ->andReturn(true);
 

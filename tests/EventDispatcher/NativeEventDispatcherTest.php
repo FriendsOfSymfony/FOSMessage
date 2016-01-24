@@ -13,6 +13,7 @@ namespace FOS\Message\Tests\EventDispatcher;
 
 use FOS\Message\Event\ConversationEvent;
 use FOS\Message\Event\MessageEvent;
+use FOS\Message\EventDispatcher\EventDispatcherInterface;
 use FOS\Message\EventDispatcher\NativeEventDispatcher;
 use FOS\Message\Model\Conversation;
 use FOS\Message\Model\Message;
@@ -33,10 +34,8 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getCallbacks
-     *
-     * @param callback $listener
      */
-    public function testMessageListener($listener)
+    public function testMessageListener($eventName, $listener)
     {
         $this->dispatcher->addListener($listener);
 
@@ -45,7 +44,7 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('BodyUnchanged', $message->getBody());
 
-        $event = $this->dispatcher->dispatch(new MessageEvent($message));
+        $event = $this->dispatcher->dispatch($eventName, new MessageEvent($message));
 
         $this->assertEquals('BodyEdited', $message->getBody());
         $this->assertEquals('BodyEdited', $event->getMessage()->getBody());
@@ -53,10 +52,8 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
     /**
      * @dataProvider getCallbacks
-     *
-     * @param callback $listener
      */
-    public function testConversationListener($listener)
+    public function testConversationListener($eventName, $listener)
     {
         $this->dispatcher->addListener($listener);
 
@@ -69,7 +66,7 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
         $this->assertEquals('SubjectUnchanged', $conversation->getSubject());
         $this->assertEquals('BodyUnchanged', $message->getBody());
 
-        $event = $this->dispatcher->dispatch(new ConversationEvent($conversation, $message));
+        $event = $this->dispatcher->dispatch($eventName, new ConversationEvent($conversation, $message));
 
         $this->assertEquals('SubjectEdited', $conversation->getSubject());
         $this->assertEquals('SubjectEdited', $event->getConversation()->getSubject());
@@ -80,20 +77,42 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
     public function getCallbacks()
     {
         return [
-            'Array callable'     => [[$this, 'callbackListener']],
-            'Anonymous function' => [function (MessageEvent $event) {
-                if ($event instanceof ConversationEvent) {
-                    $event->getConversation()->setSubject('SubjectEdited');
-                }
+            'Array callable PRE_PERSIST' => [
+                EventDispatcherInterface::PRE_PERSIST,
+                [$this, 'callbackListener'],
+            ],
+            'Array callable POST_PERSIST' => [
+                EventDispatcherInterface::POST_PERSIST,
+                [$this, 'callbackListener'],
+            ],
+            'Anonymous function PRE_PERSIST' => [
+                EventDispatcherInterface::PRE_PERSIST,
+                function ($eventName, MessageEvent $event) {
+                    if ($event instanceof ConversationEvent) {
+                        $event->getConversation()->setSubject('SubjectEdited');
+                    }
 
-                $event->getMessage()->setBody('BodyEdited');
+                    $event->getMessage()->setBody('BodyEdited');
 
-                return $event;
-            }],
+                    return $event;
+                },
+            ],
+            'Anonymous function POST_PERSIST' => [
+                EventDispatcherInterface::POST_PERSIST,
+                function ($eventName, MessageEvent $event) {
+                    if ($event instanceof ConversationEvent) {
+                        $event->getConversation()->setSubject('SubjectEdited');
+                    }
+
+                    $event->getMessage()->setBody('BodyEdited');
+
+                    return $event;
+                },
+            ],
         ];
     }
 
-    public function callbackListener(MessageEvent $event)
+    public function callbackListener($eventName, MessageEvent $event)
     {
         if ($event instanceof ConversationEvent) {
             $event->getConversation()->setSubject('SubjectEdited');
@@ -106,13 +125,13 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
     public function testMultipleListeners()
     {
-        $this->dispatcher->addListener(function (MessageEvent $event) {
+        $this->dispatcher->addListener(function ($eventName, MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedFirst');
 
             return $event;
         });
 
-        $this->dispatcher->addListener(function (MessageEvent $event) {
+        $this->dispatcher->addListener(function ($eventName, MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedSecond');
 
             return $event;
@@ -123,7 +142,7 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('BodyUnchanged', $message->getBody());
 
-        $event = $this->dispatcher->dispatch(new MessageEvent($message));
+        $event = $this->dispatcher->dispatch(EventDispatcherInterface::PRE_PERSIST, new MessageEvent($message));
 
         $this->assertEquals('BodyEditedSecond', $message->getBody());
         $this->assertEquals('BodyEditedSecond', $event->getMessage()->getBody());
@@ -131,13 +150,13 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
     public function testRemoveListener()
     {
-        $this->dispatcher->addListener(function (MessageEvent $event) {
+        $this->dispatcher->addListener(function ($eventName, MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedFirst');
 
             return $event;
         });
 
-        $secondListener = function (MessageEvent $event) {
+        $secondListener = function ($eventName, MessageEvent $event) {
             $event->getMessage()->setBody('BodyEditedSecond');
 
             return $event;
@@ -151,7 +170,7 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('BodyUnchanged', $message->getBody());
 
-        $event = $this->dispatcher->dispatch(new MessageEvent($message));
+        $event = $this->dispatcher->dispatch(EventDispatcherInterface::PRE_PERSIST, new MessageEvent($message));
 
         $this->assertEquals('BodyEditedFirst', $message->getBody());
         $this->assertEquals('BodyEditedFirst', $event->getMessage()->getBody());
