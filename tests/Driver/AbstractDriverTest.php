@@ -96,6 +96,23 @@ abstract class AbstractDriverTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($personModel->getPerson(), $person);
     }
 
+    public function testCountMessages()
+    {
+        $conversation = $this->driver->createConversationModel();
+        $conversation->setSubject('Subject');
+        $this->driver->persistConversation($conversation);
+
+        $firstMessage = $this->driver->createMessageModel($conversation, $this->createPerson(), 'Body1');
+        $this->driver->persistMessage($firstMessage);
+
+        $secondMessage = $this->driver->createMessageModel($conversation, $this->createPerson(), 'Body2');
+        $this->driver->persistMessage($secondMessage);
+
+        $this->driver->flush();
+
+        $this->assertSame(2, $this->driver->countMessages($conversation));
+    }
+
     public function testFindMessagesAsc()
     {
         $conversation = $this->driver->createConversationModel();

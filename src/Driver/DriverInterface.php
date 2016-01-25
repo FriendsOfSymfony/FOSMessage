@@ -11,6 +11,7 @@
 
 namespace FOS\Message\Driver;
 
+use Doctrine\Common\Collections\Collection;
 use FOS\Message\Model\ConversationInterface;
 use FOS\Message\Model\ConversationPersonInterface;
 use FOS\Message\Model\MessageInterface;
@@ -97,6 +98,15 @@ interface DriverInterface
      * @return ConversationPersonInterface|null
      */
     public function findConversationPerson(ConversationInterface $conversation, PersonInterface $person);
+
+    /**
+     * Return the number of messages in a conversation.
+     *
+     * @param ConversationInterface $conversation
+     *
+     * @return int The number of messages
+     */
+    public function countMessages(ConversationInterface $conversation);
 
     /**
      * Return the ordered list of messages in a conversation.

@@ -63,6 +63,14 @@ class Repository implements RepositoryInterface
     /**
      * {@inheritdoc}
      */
+    public function countMessages(ConversationInterface $conversation)
+    {
+        return $this->driver->countMessages($conversation);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $sortDirection = 'ASC')
     {
         Assert::integer($offset, '$offset expected an integer in Repository::getMessages(). Got: %s');

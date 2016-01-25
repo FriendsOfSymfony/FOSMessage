@@ -120,6 +120,20 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
     /**
      * {@inheritdoc}
      */
+    public function countMessages(ConversationInterface $conversation)
+    {
+        $qb = $this->objectManager->createQueryBuilder()
+            ->select('COUNT(m)')
+            ->from($this->getMessageClass(), 'm')
+            ->where('m.conversation = :conversation')
+            ->setParameter('conversation', $conversation->getId());
+
+        return (int) $qb->getQuery()->getSingleScalarResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function findMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $sortDirection = 'ASC')
     {
         $qb = $this->objectManager->createQueryBuilder()

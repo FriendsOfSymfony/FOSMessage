@@ -60,6 +60,15 @@ interface RepositoryInterface
     public function getConversationPerson(ConversationInterface $conversation, PersonInterface $person);
 
     /**
+     * Count all the messages of a conversation.
+     *
+     * @param ConversationInterface $conversation
+     *
+     * @return int The number of messages in the given conversation.
+     */
+    public function countMessages(ConversationInterface $conversation);
+
+    /**
      * Get messages of a conversation.
      *
      * @param ConversationInterface $conversation

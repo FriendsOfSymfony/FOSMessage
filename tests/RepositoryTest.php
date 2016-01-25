@@ -78,6 +78,18 @@ class RepositoryTest extends PHPUnit_Framework_TestCase
         $this->assertSame($conversationPerson, $this->repository->getConversationPerson($conversation, $user));
     }
 
+    public function testCountMessages()
+    {
+        $conversation = Mockery::mock('FOS\Message\Model\ConversationInterface');
+
+        $this->driver->shouldReceive('countMessages')
+            ->once()
+            ->with($conversation)
+            ->andReturn(4);
+
+        $this->assertSame(4, $this->repository->countMessages($conversation));
+    }
+
     public function testGetMessages()
     {
         $conversation = Mockery::mock('FOS\Message\Model\ConversationInterface');
