@@ -96,23 +96,6 @@ abstract class AbstractDriverTest extends PHPUnit_Framework_TestCase
         $this->assertEquals($personModel->getPerson(), $person);
     }
 
-    public function testCountMessages()
-    {
-        $conversation = $this->driver->createConversationModel();
-        $conversation->setSubject('Subject');
-        $this->driver->persistConversation($conversation);
-
-        $firstMessage = $this->driver->createMessageModel($conversation, $this->createPerson(), 'Body1');
-        $this->driver->persistMessage($firstMessage);
-
-        $secondMessage = $this->driver->createMessageModel($conversation, $this->createPerson(), 'Body2');
-        $this->driver->persistMessage($secondMessage);
-
-        $this->driver->flush();
-
-        $this->assertSame(2, $this->driver->countMessages($conversation));
-    }
-
     public function testFindMessagesAsc()
     {
         $conversation = $this->driver->createConversationModel();
@@ -127,12 +110,17 @@ abstract class AbstractDriverTest extends PHPUnit_Framework_TestCase
 
         $this->driver->flush();
 
+        $conversation = $this->driver->findConversation($conversation->getId());
         $fetched = $this->driver->findMessages($conversation, 0, 20, 'ASC');
 
         $this->assertInstanceOf('Doctrine\Common\Collections\Collection', $fetched);
         $this->assertCount(2, $fetched);
         $this->assertMessagesEquals($firstMessage, $fetched[0]);
         $this->assertMessagesEquals($secondMessage, $fetched[1]);
+
+        foreach ($conversation->getMessages() as $key => $message) {
+            $this->assertMessagesEquals($message, $fetched[$key]);
+        }
     }
 
     public function testFindMessagesDesc()

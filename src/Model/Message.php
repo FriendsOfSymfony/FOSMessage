@@ -145,4 +145,32 @@ class Message implements MessageInterface
     {
         return $this->persons;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getReadDate(PersonInterface $person)
+    {
+        $messagePerson = $this->getMessagePerson($person);
+
+        if (! $messagePerson) {
+            return null;
+        }
+
+        return $messagePerson->getRead();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMessagePerson(PersonInterface $person)
+    {
+        foreach ($this->persons as $messagePerson) {
+            if ($messagePerson->getPerson()->getId() === $person->getId()) {
+                return $messagePerson;
+            }
+        }
+
+        return null;
+    }
 }

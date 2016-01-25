@@ -17,6 +17,7 @@ use FOS\Message\Driver\Doctrine\AbstractDoctrineDriver;
 use FOS\Message\Model\ConversationInterface;
 use FOS\Message\Model\PersonInterface;
 use FOS\Message\Model\TagInterface;
+use Symfony\Component\VarDumper\VarDumper;
 
 /**
  * Driver for Doctrine ORM.
@@ -56,6 +57,18 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
     public function findPersonConversations(PersonInterface $person, TagInterface $tag = null)
     {
         $qb = $this->createConversationQueryBuilder();
+
+        // Last message date order
+        $lastMessageDateSubquery = $this->objectManager->createQueryBuilder()
+            ->select('MAX(lmds.read)')
+            ->from($this->getMessagePersonClass(), 'lmds')
+            ->leftJoin('lmds.message', 'lmdsm')
+            ->where('lmds.person = :person')
+            ->andWhere('IDENTITY(lmdsm.conversation) = c.id')
+            ->getDQL();
+
+        $qb->addSelect('('. $lastMessageDateSubquery .') AS HIDDEN lastMessageDate');
+        $qb->orderBy('lastMessageDate', 'DESC');
 
         // Person filter
         $personSubquery = $this->objectManager->createQueryBuilder()
@@ -120,20 +133,6 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
     /**
      * {@inheritdoc}
      */
-    public function countMessages(ConversationInterface $conversation)
-    {
-        $qb = $this->objectManager->createQueryBuilder()
-            ->select('COUNT(m)')
-            ->from($this->getMessageClass(), 'm')
-            ->where('m.conversation = :conversation')
-            ->setParameter('conversation', $conversation->getId());
-
-        return (int) $qb->getQuery()->getSingleScalarResult();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function findMessages(ConversationInterface $conversation, $offset = 0, $limit = 20, $sortDirection = 'ASC')
     {
         $qb = $this->objectManager->createQueryBuilder()
@@ -158,10 +157,14 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
     private function createConversationQueryBuilder()
     {
         return $this->objectManager->createQueryBuilder()
-            ->select('c', 'cp', 'p', 't')
+            ->select('c', 'cp', 'p', 't', 'm', 'mp')
             ->from($this->getConversationClass(), 'c')
             ->leftJoin('c.persons', 'cp')
             ->leftJoin('cp.person', 'p')
-            ->leftJoin('cp.tags', 't');
+            ->leftJoin('cp.tags', 't')
+            ->leftJoin('c.messages', 'm')
+            ->leftJoin('m.persons', 'mp')
+            ->orderBy('m.date', 'ASC')
+            ->addOrderBy('m.id', 'ASC');
     }
 }

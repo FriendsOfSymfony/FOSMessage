@@ -32,6 +32,11 @@ class Conversation implements ConversationInterface
     protected $subject;
 
     /**
+     * @var MessageInterface[]|\Doctrine\Common\Collections\Collection
+     */
+    protected $messages;
+
+    /**
      * @var ConversationPersonInterface[]|\Doctrine\Common\Collections\Collection
      */
     protected $persons;
@@ -42,6 +47,7 @@ class Conversation implements ConversationInterface
     public function __construct()
     {
         $this->persons = new ArrayCollection();
+        $this->messages = new ArrayCollection();
     }
 
     /**
@@ -68,6 +74,28 @@ class Conversation implements ConversationInterface
         Assert::nullOrString($subject);
 
         $this->subject = $subject;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getMessages()
+    {
+        return $this->messages;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getFirstUnreadMessage(PersonInterface $person)
+    {
+        foreach ($this->messages as $message) {
+            if ($message->getReadDate($person) === null) {
+                return $message;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -101,12 +129,20 @@ class Conversation implements ConversationInterface
      */
     public function isPersonInConversation(PersonInterface $person)
     {
+        return $this->getConversationPerson($person) instanceof ConversationPersonInterface;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getConversationPerson(PersonInterface $person)
+    {
         foreach ($this->persons as $conversationPerson) {
             if ($conversationPerson->getPerson()->getId() === $person->getId()) {
-                return true;
+                return $conversationPerson;
             }
         }
 
-        return false;
+        return null;
     }
 }

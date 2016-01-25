@@ -11,6 +11,8 @@
 
 namespace FOS\Message\Model;
 
+use Doctrine\Common\Collections\Collection;
+
 /**
  * A conversation is an ordered group of messages with a subject.
  *
@@ -41,6 +43,24 @@ interface ConversationInterface
     public function setSubject($subject);
 
     /**
+     * Get all the messages in this conversation.
+     * Return a list ordered by date ascending.
+     *
+     * @return Message[]|Collection
+     */
+    public function getMessages();
+
+    /**
+     * Get the first unread message of the conversation by a person,
+     * or null if all the messages have been read.
+     *
+     * @param PersonInterface $person
+     *
+     * @return null
+     */
+    public function getFirstUnreadMessage(PersonInterface $person);
+
+    /**
      * Add a person to this conversation.
      *
      * @param ConversationPersonInterface $conversationPerson
@@ -69,4 +89,14 @@ interface ConversationInterface
      * @return bool
      */
     public function isPersonInConversation(PersonInterface $person);
+
+    /**
+     * Return the ConversationPerson object associated to the given person
+     * or null if the person is not a member of this conversation.
+     *
+     * @param PersonInterface $person
+     *
+     * @return ConversationPerson|null
+     */
+    public function getConversationPerson(PersonInterface $person);
 }

@@ -88,4 +88,24 @@ interface MessageInterface
      * @return MessagePersonInterface[]|\Doctrine\Common\Collections\Collection
      */
     public function getMessagePersons();
+
+    /**
+     * Return the read date of this message by the given person
+     * or null if the person did not read this message.
+     *
+     * @param PersonInterface $person
+     *
+     * @return \DateTime|null
+     */
+    public function getReadDate(PersonInterface $person);
+
+    /**
+     * Return the MessagePerson object associated to the given person
+     * or null if the person is not a member of the message conversation.
+     *
+     * @param PersonInterface $person
+     *
+     * @return MessagePerson|null
+     */
+    public function getMessagePerson(PersonInterface $person);
 }

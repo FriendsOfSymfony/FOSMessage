@@ -11,8 +11,11 @@
 
 namespace FOS\Message\Driver\Doctrine\ORM\Entity;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use FOS\Message\Model\Conversation as BaseConversation;
+use FOS\Message\Model\ConversationPersonInterface;
+use FOS\Message\Model\MessageInterface;
 
 /**
  * @ORM\Table(name="fos_message_conversations")
@@ -35,7 +38,18 @@ class Conversation extends BaseConversation
     protected $subject;
 
     /**
-     * @var \FOS\Message\Model\ConversationPersonInterface[]
+     * @var MessageInterface[]|Collection
+     *
+     * @ORM\OneToMany(
+     *      targetEntity="FOS\Message\Driver\Doctrine\ORM\Entity\Message",
+     *      mappedBy="conversation",
+     *      cascade={"all"}
+     * )
+     */
+    protected $messages;
+
+    /**
+     * @var ConversationPersonInterface[]|Collection
      *
      * @ORM\OneToMany(
      *      targetEntity="FOS\Message\Driver\Doctrine\ORM\Entity\ConversationPerson",
