@@ -26,6 +26,12 @@ Documentation
 
 You can [read the documentation here](http://fosmessage.readthedocs.org).
 
+Usage example
+-------------
+
+An implementation example is available on Github:
+[tgalopin/FOSMessage-demo](https://github.com/tgalopin/FOSMessage-demo).
+
 Key features
 ------------
 
