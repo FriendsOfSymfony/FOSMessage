@@ -22,14 +22,28 @@ use FOS\Message\Event\MessageEvent;
 interface EventDispatcherInterface
 {
     /**
-     * PRE_PERSIST is dispatched right before entities are persisted and flushed.
+     * START_CONVERSATION_PRE_PERSIST is dispatched right before entities
+     * are persisted and flushed in the Sender::startConversation() method.
      */
-    const PRE_PERSIST = 'fos_message.pre_persist';
+    const START_CONVERSATION_PRE_PERSIST = 'fos_message.start_conversation.pre_persist';
 
     /**
-     * POST_PERSIST is dispatched right after entities are persisted and flushed.
+     * START_CONVERSATION_POST_PERSIST is dispatched right after entities
+     * are persisted and flushed in the Sender::startConversation() method.
      */
-    const POST_PERSIST = 'fos_message.post_persist';
+    const START_CONVERSATION_POST_PERSIST = 'fos_message.start_conversation.post_persist';
+
+    /**
+     * SEND_MESSAGE_PRE_PERSIST is dispatched right before entities
+     * are persisted and flushed in the Sender::sendMessage() method.
+     */
+    const SEND_MESSAGE_PRE_PERSIST = 'fos_message.send_message.pre_persist';
+
+    /**
+     * SEND_MESSAGE_POST_PERSIST is dispatched right after entities
+     * are persisted and flushed in the Sender::sendMessage() method.
+     */
+    const SEND_MESSAGE_POST_PERSIST = 'fos_message.send_message.post_persist';
 
     /**
      * Dispatch an event and return the result.
@@ -37,8 +51,7 @@ interface EventDispatcherInterface
      * A ConversationEvent is dispatched when a conversation is started.
      * A MessageEvent is dispatched when a message is sent in a conversation.
      *
-     * See the FOSMessageEvents class for the exhaustive list of the events
-     * dispatched by FOSMessage.
+     * See the EventDis dispatched by FOSMessage.
      *
      * @param string                         $eventName
      * @param MessageEvent|ConversationEvent $event

@@ -77,16 +77,16 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
     public function getCallbacks()
     {
         return [
-            'Array callable PRE_PERSIST' => [
-                EventDispatcherInterface::PRE_PERSIST,
+            'Array callable START_CONVERSATION_PRE_PERSIST' => [
+                EventDispatcherInterface::START_CONVERSATION_PRE_PERSIST,
                 [$this, 'callbackListener'],
             ],
-            'Array callable POST_PERSIST' => [
-                EventDispatcherInterface::POST_PERSIST,
+            'Array callable START_CONVERSATION_POST_PERSIST' => [
+                EventDispatcherInterface::START_CONVERSATION_POST_PERSIST,
                 [$this, 'callbackListener'],
             ],
-            'Anonymous function PRE_PERSIST' => [
-                EventDispatcherInterface::PRE_PERSIST,
+            'Anonymous function START_CONVERSATION_PRE_PERSIST' => [
+                EventDispatcherInterface::START_CONVERSATION_PRE_PERSIST,
                 function ($eventName, MessageEvent $event) {
                     if ($event instanceof ConversationEvent) {
                         $event->getConversation()->setSubject('SubjectEdited');
@@ -97,8 +97,40 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
                     return $event;
                 },
             ],
-            'Anonymous function POST_PERSIST' => [
-                EventDispatcherInterface::POST_PERSIST,
+            'Anonymous function START_CONVERSATION_POST_PERSIST' => [
+                EventDispatcherInterface::START_CONVERSATION_POST_PERSIST,
+                function ($eventName, MessageEvent $event) {
+                    if ($event instanceof ConversationEvent) {
+                        $event->getConversation()->setSubject('SubjectEdited');
+                    }
+
+                    $event->getMessage()->setBody('BodyEdited');
+
+                    return $event;
+                },
+            ],
+            'Array callable SEND_MESSAGE_PRE_PERSIST' => [
+                EventDispatcherInterface::SEND_MESSAGE_PRE_PERSIST,
+                [$this, 'callbackListener'],
+            ],
+            'Array callable SEND_MESSAGE_POST_PERSIST' => [
+                EventDispatcherInterface::SEND_MESSAGE_POST_PERSIST,
+                [$this, 'callbackListener'],
+            ],
+            'Anonymous function SEND_MESSAGE_PRE_PERSIST' => [
+                EventDispatcherInterface::SEND_MESSAGE_PRE_PERSIST,
+                function ($eventName, MessageEvent $event) {
+                    if ($event instanceof ConversationEvent) {
+                        $event->getConversation()->setSubject('SubjectEdited');
+                    }
+
+                    $event->getMessage()->setBody('BodyEdited');
+
+                    return $event;
+                },
+            ],
+            'Anonymous function SEND_MESSAGE_POST_PERSIST' => [
+                EventDispatcherInterface::SEND_MESSAGE_POST_PERSIST,
                 function ($eventName, MessageEvent $event) {
                     if ($event instanceof ConversationEvent) {
                         $event->getConversation()->setSubject('SubjectEdited');
@@ -142,7 +174,10 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('BodyUnchanged', $message->getBody());
 
-        $event = $this->dispatcher->dispatch(EventDispatcherInterface::PRE_PERSIST, new MessageEvent($message));
+        $event = $this->dispatcher->dispatch(
+            EventDispatcherInterface::SEND_MESSAGE_PRE_PERSIST,
+            new MessageEvent($message)
+        );
 
         $this->assertEquals('BodyEditedSecond', $message->getBody());
         $this->assertEquals('BodyEditedSecond', $event->getMessage()->getBody());
@@ -170,7 +205,10 @@ class NativeEventDispatcherTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals('BodyUnchanged', $message->getBody());
 
-        $event = $this->dispatcher->dispatch(EventDispatcherInterface::PRE_PERSIST, new MessageEvent($message));
+        $event = $this->dispatcher->dispatch(
+            EventDispatcherInterface::SEND_MESSAGE_PRE_PERSIST,
+            new MessageEvent($message)
+        );
 
         $this->assertEquals('BodyEditedFirst', $message->getBody());
         $this->assertEquals('BodyEditedFirst', $event->getMessage()->getBody());

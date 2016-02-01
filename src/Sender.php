@@ -22,7 +22,7 @@ use FOS\Message\Model\PersonInterface;
 use Webmozart\Assert\Assert;
 
 /**
- * The service is the main entrypoint of the library.
+ * Start conversations and send replies.
  *
  * @author Titouan Galopin <galopintitouan@gmail.com>
  */
@@ -83,7 +83,10 @@ class Sender implements SenderInterface
         // Dispatch PRE_PERSIST event
         $event = new ConversationEvent($conversation, $message);
 
-        $this->dispatchEvent(EventDispatcherInterface::PRE_PERSIST, $event);
+        $this->dispatchEvent(
+            EventDispatcherInterface::START_CONVERSATION_PRE_PERSIST,
+            $event
+        );
 
         $conversation = $event->getConversation();
         $message = $event->getMessage();
@@ -94,7 +97,10 @@ class Sender implements SenderInterface
         $this->driver->flush();
 
         // Dispatch POST_PERSIST event
-        $this->dispatchEvent(EventDispatcherInterface::POST_PERSIST, new ConversationEvent($conversation, $message));
+        $this->dispatchEvent(
+            EventDispatcherInterface::START_CONVERSATION_POST_PERSIST,
+            new ConversationEvent($conversation, $message)
+        );
 
         return $conversation;
     }
@@ -118,7 +124,10 @@ class Sender implements SenderInterface
         // Dispatch PRE_PERSIST event
         $event = new MessageEvent($message);
 
-        $this->dispatchEvent(EventDispatcherInterface::PRE_PERSIST, $event);
+        $this->dispatchEvent(
+            EventDispatcherInterface::SEND_MESSAGE_PRE_PERSIST,
+            $event
+        );
 
         $message = $event->getMessage();
 
@@ -127,7 +136,10 @@ class Sender implements SenderInterface
         $this->driver->flush();
 
         // Dispatch POST_PERSIST event
-        $this->dispatchEvent(EventDispatcherInterface::POST_PERSIST, new MessageEvent($message));
+        $this->dispatchEvent(
+            EventDispatcherInterface::SEND_MESSAGE_POST_PERSIST,
+            new MessageEvent($message)
+        );
 
         return $message;
     }
