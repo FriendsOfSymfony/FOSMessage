@@ -83,6 +83,14 @@ class MessagePerson implements MessagePersonInterface
     /**
      * {@inheritdoc}
      */
+    public function setNotRead()
+    {
+        $this->read = null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function isRead()
     {
         return $this->read instanceof \DateTime;

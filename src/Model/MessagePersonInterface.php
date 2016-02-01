@@ -41,6 +41,11 @@ interface MessagePersonInterface
     public function setRead();
 
     /**
+     * Set the read date of the message as null (unread).
+     */
+    public function setNotRead();
+
+    /**
      * Return the exact time the message was read by the person.
      *
      * @return \DateTime
