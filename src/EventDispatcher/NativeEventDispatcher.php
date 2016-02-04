@@ -26,17 +26,9 @@ use Webmozart\Assert\Assert;
  * $dispatcher = new NativeEventDispatcher();
  *
  * $dispatcher->addListener(function($eventName, MessageEvent $event) {
- *      if ($event instanceof ConversationEvent) {
- *          // Event is a new conversation
- *      } else {
- *          // Event is an answer to a conversation
- *      }
- *
- *      if ($eventName === FOSMessageEvents::PRE_PERSIST) {
- *          // Before persist
- *      } elseif ($eventName === FOSMessageEvents::POST_PERSIST) {
- *          // After persist
- *      }
+ *      // You can check $eventName to execute code at some specific events.
+ *      // $event can be an instance of MessageEvent or an instance of ConversationEvent
+ *      // (which extends MessageEvent).
  * });
  *
  * $sender = new Sender($driver, $dispatcher);
