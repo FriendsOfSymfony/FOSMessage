@@ -154,7 +154,7 @@ class DoctrineORMDriver extends AbstractDoctrineDriver
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    private function createConversationQueryBuilder()
+    protected function createConversationQueryBuilder()
     {
         return $this->objectManager->createQueryBuilder()
             ->select('c', 'cp', 'p', 't', 'm', 'mp')
